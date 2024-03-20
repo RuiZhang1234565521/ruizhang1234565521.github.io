@@ -1,7 +1,7 @@
 var data={
 	opidurl:'http://1.hao933.top',
-	serverurl:'http://144.123.142.106:4998/zhuanfa',
-	wenlvtong:'http://144.123.142.106:4998'
+	serverurl:'https://144.123.142.106:4999/zhuanfa',
+	wenlvtong:'https://144.123.142.106:4999'
 }
 function getopid(){
     return new Promise((resolve,reject)=>{
