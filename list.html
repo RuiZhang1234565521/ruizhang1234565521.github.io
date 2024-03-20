@@ -1,0 +1,206 @@
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>List</title>
+		<style type="text/css">
+		body{margin:0 auto;word-break:break-all;background: url(https://zhr577.gitee.io/img/bg-1.jpg);}
+		@media screen and (min-width:400px) {body {width: 400px}}
+		@media screen and (max-width:400px) {body {width: 99%}}
+		.wechetbt{font-size:30px;background:rgb(0, 114, 0);height:42px;color:#fff;line-height:42px;}
+		.wechetbt img{width:40px;height:40px;float:left;border-radius:10px;margin:0 20px;border:1px solid rgb(196, 196, 0);}
+		a{display: flex;align-items: center;justify-content: center;float: left;width: 60px;height: 35px;margin: 8px;
+			color:#00526b;border-radius: 5px;text-decoration: none;cursor: default;transition: all .2s ease-in-out;
+			box-shadow: 5px 5px 15px rgba(0,0,0,0.5),-5px -5px 15px rgba(255, 255, 255, 1);
+			background-color: #fff;
+		}
+		a:hover, a:focus{box-shadow: 0 0 0 rgba(0,0,0,0.2),0 0 0 rgba(255, 255, 255, 0.8),
+			inset 5px 5px 15px rgba(0,0,0,0.3),inset -5px -5px 15px rgba(255, 255, 255, 1);}
+		p:hover, tr:hover{cursor: default;background-color: #fff;
+			box-shadow: 5px 5px 15px rgba(0,0,0,0.5),-5px -5px 15px rgba(255, 255, 255, 1);}
+		.cls1{color:#090;}
+		.cls2{color:#F00;}
+		.cls3{color:#00F;}
+		p{margin:0px auto;width:100%;}
+		td{padding-left: 10px;}
+		#dog {width: 200px; border-radius:10px; font-size: 14px;}
+		#dog div{margin-top: 20px; text-align: right;}
+		#dog button{margin-left: 20px;}
+		#b{width:calc(100%-0); margin: 0 auto;background-color:antiquewhite; border-radius: 10px;padding: 10px;font-size: 14px;}
+		table {width: 100%;border-collapse: collapse;}
+		td {border-collapse: collapse;border-bottom: 1px solid #7ab;text-align: left;font-size: 14px;cursor: default;}
+	</style>
+</head>
+<body>
+	<div class="wechetbt"><img id="head" src="http://zhr577.gitee.io/img/head.jpg"/><text id="nickname"></text></div>
+	<div style="border-bottom:1px solid rgb(1, 85, 26);">
+		<div id="a" style="margin-top: 10px;">数据尚未加载</div>
+		<div style="clear: both;"></div>
+		<div style="display: none;" id="c">
+			<a onclick="getfee('wy1')" tabindex="1">WY1</a>
+			<a onclick="getfee('wy')" tabindex="1">WY2</a>
+			<a onclick="getfee('jd')" tabindex="1">JD</a>
+			<a onclick="getfee('lt')" tabindex="1">LT</a>
+			<a onclick="getmoney()"   tabindex="1">充值</a>
+			<a onclick="wxoleven()"   tabindex="1">事件</a>
+			<a onclick="getfee('log')" tabindex="1">LOG</a>
+			<a onclick="reuser()" tabindex="1">OUT</a>
+			<a onclick="qingchujs()" tabindex="1">刷新</a>
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+	<div id="b">数据尚未加载</div>
+	<dialog id='dog'>
+		<p>message</p>
+		<div>
+			<text id='dogbtn'></text>
+			<text><button onclick=dog.close()>关闭</button></text>
+		</div>
+	</dialog>
+</body>
+</html>
+
+<script src="http://zhr577.gitee.io/js/jquery.min.js" type="text/javascript"></script>
+<script src="opid.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(async function(){//禁用前进后退
+        history.pushState(null, null, null)
+        window.addEventListener('popstate', function () {history.pushState(null, null, null)})
+        await getopid();getuser();getlist();pagerun()
+    })
+	function getlist(){
+		let opid = data.opid
+		$("#a").html("正在获取数据")
+		$.ajax({
+			type: "get",
+			url: data.wenlvtong + "/myapi/list.php",
+			data:{opid},
+			dataType: "jsonp",
+			async:false,
+			success: function(db){
+				if(db[0].a=="E1"){$("body").html("无法使用");return}
+				$("#a").html("")
+				for(i=0;i<db.length;i++){
+					$("#a").append("<a href=" + db[i].b + " target='_blank' tabindex='1'>" + db[i].a + "</a>")
+				}
+			},
+			error: function(db){$("#a").html("<p class=cls1>获取数据失败,请检查文旅服务器...</p>")}
+		})
+	}
+	function getfee(id){
+		let opid = data.opid
+		$("#b").html("正在获取数据")
+		$.ajax({
+			type: "get",
+			url: data.wenlvtong + "/myapi/fee_api.php",
+			data:{id,opid},
+			dataType: "jsonp",
+			jsonp: "callback",
+			success: function(db){
+				$("#dogbtn").html('')
+				if(id=='wy1'){
+					let str = "<input type='text' id='copytext' style='width:100%' readonly='true'/><table>"
+					for(i=0;i<db.length;i++){
+						if(db[i].js==null){db[i].js=""}
+						if(db[i].ys==0){str += '<tr class=cls1>'}
+						if(db[i].ys==2){str += '<tr class=cls3>'}
+						str += `<td width=140px>${db[i].rq}</td><td onclick=fuzhi('${db[i].id}','${db[i].lx}')>${db[i].lx}</td><td>${db[i].ds}</td><td>${db[i].js}</td></tr>`
+					}
+					str += '</table>'
+					$("#b").html(str)
+					return
+				}
+				let str = '<table>'
+				if(!db){
+					$("#b").html('无记录')
+					return
+				}
+				for(i=0;i<db.length;i++){
+					if(db[i].js==null){db[i].js=""}
+					if(db[i].ys==0){str += '<tr class=cls1>'}
+					if(db[i].ys==2){str += '<tr class=cls3>'}
+					str += `<td width=140px>${db[i].rq}</td><td>${db[i].lx}</td><td>${db[i].ds}</td><td>${db[i].js}</td></tr>`
+				}
+				str += '</table>'
+				$("#b").html(str)
+				return
+			},
+			error: function(db){$("#b").html("<p class=cls1>获取数据失败,请检查文旅服务器...</p>")}
+		})
+	}
+
+	function getmoney(){
+		let opid = data.opid
+		let mode = 1
+		$("#b").html("正在获取数据")
+		$.ajax({
+			type: "get",
+			url: data.wenlvtong + "/myapi/wxolapi.php",
+			data:{opid,mode},
+			dataType: "jsonp",
+			jsonp: "callback",
+			success: function(db){
+				let str = "<input type='text' id='copytext' style='width:100%' readonly='true'/><table>"
+				for(i=0;i<db.length;i++){
+					if(db[i].db3==2){str += '<tr class=cls1>'}
+					else if(db[i].db3==1){str += '<tr class=cls2>'}
+					else{str += '<tr class=cls3>'}
+					str += `<td>${db[i].tm}</td><td onclick=fuzhi('${db[i].id}','${db[i].name}')>${db[i].name}</td><td>${db[i].db}</td></tr>`
+				}
+				str += '</table>'
+				$("#b").html(str)
+			},
+			error: function(db){$("#b").html("<p class=cls1>获取数据失败,请检查文旅服务器...</p>")}
+		})
+	}
+	function wxoleven(){
+		let opid = data.opid
+		let mode = 2
+		$("#b").html("正在获取数据")
+		$.ajax({
+			type: "get",
+			url: data.wenlvtong + "/myapi/wxolapi.php",
+			data:{opid,mode},
+			dataType: "jsonp",
+			jsonp: "callback",
+			success: function(db){
+				$("#dogbtn").html("<button onclick=deleven()>确定</button>")
+				$("#dog p").html('确定清空数据吗?')
+				let str = `<div id='code' onclick=dog.showModal() style='cursor: pointer'>数据量:${db.length}</div>`
+				str += '<table>'
+				for(i=0;i<db.length;i++){str+=`<tr><td width=70px>${db[i].tm}</td><td>${db[i].db}</tr></td>`}
+				str += '</table>'
+				$("#b").html(str)
+			},
+			error: function(db){$("#b").html("<p class=cls1>获取数据失败,请检查文旅服务器...</p>")}
+		})
+	}
+	function deleven(){
+		dog.close()
+		if(!IsPC()){return}
+		let opid = data.opid
+		let mode = 3
+		$("#b").html("正在获取数据")
+		$.ajax({
+			type: "get",
+			url: data.wenlvtong + "/myapi/wxolapi.php",
+			data:{opid,mode},
+			dataType: "jsonp",
+			jsonp: "callback",
+			success: function(db){wxoleven()},
+			error: function(db){$("#b").html("<p class=cls1>获取数据失败,请检查文旅服务器...</p>")}
+		})
+	}
+	function pagerun(){if(data.opid.length==28){$('#c').css('display','');$('#b').html(window.location.href)}}
+    function fuzhi(str1,str2){
+		if(!IsPC()){return}
+		const copytxt = document.getElementById('copytext')
+		copytxt.value = `'${str1}'=>'${str2}',`
+		copytxt.select()
+		document.execCommand('copy')
+	}
+	function qingchujs(){
+		location.reload(true)
+		jQuery.ajaxSetup ({cache:false})
+	}
+</script>
