@@ -1,7 +1,7 @@
 var data={
-  opidurl:  'https://tt.cycs666.com:4999/zf-sf',
-  serverurl:'https://tt.cycs666.com:4999/zf-sf',
-  wenlvtong:'https://tt.cycs666.com:4999',
+  opidurl:  'https://144.123.142.106:4999/zf-sf',
+  serverurl:'https://144.123.142.106:4999/zf-sf',
+  wenlvtong:'https://144.123.142.106:4999',
 }
 async function getopid() {
   try {
