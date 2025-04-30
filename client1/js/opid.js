@@ -1,7 +1,7 @@
 var data={
-  opidurl:  'https://a0db306d.xy.proaa.top/sf',
-  serverurl:'https://a0db306d.xy.proaa.top/sf',
-  wenlvtong:'https://tt.cycs666.com:4999',
+  opidurl:  'https://a0db306d.xy.proaa.top/proxy/sf',
+  serverurl:'https://a0db306d.xy.proaa.top/proxy/sf',
+  wenlvtong:'https://a0db306d.xy.proaa.top/proxy/tt',
 }
 async function getopid() {
   try {
