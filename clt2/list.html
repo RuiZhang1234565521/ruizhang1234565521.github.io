@@ -1,0 +1,292 @@
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>List</title>
+	<style type="text/css">
+		body {
+			margin: 0 auto;
+			word-break: break-all;
+			background: #f8f9fa;
+			color: #333;
+		}
+
+		@media screen and (min-width: 400px) {
+			body {
+				width: 400px;
+			}
+		}
+
+		@media screen and (max-width: 400px) {
+			body {
+				width: 99%;
+			}
+		}
+
+		/* 头部样式 */
+		.wechetbt {
+			background: #2c3e50;
+			height: 50px;
+			color: #fff;
+			display: flex;
+			align-items: center;
+			padding: 0 15px;
+		}
+
+		.wechetbt img {
+			width: 45px;
+			height: 45px;
+			border-radius: 20%;
+			margin-right: 10px;
+			border: 1px solid #fff;
+		}
+
+		.wechetbt #coktm {
+			font-size: 12px;
+			margin-left: auto;
+			opacity: 0.8;
+		}
+
+		/* 按钮样式 */
+		a {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			float: left;
+			width: 55px;
+			height: 35px;
+			margin: 4px;
+			color: #2c3e50;
+			border-radius: 6px;
+			text-decoration: none;
+			cursor: default;
+			background: #fff;
+			border: 1px solid #e9ecef;
+			font-weight: 500;
+		}
+
+		a:hover {
+			background: #f8f9fa;
+		}
+		/* 新增按钮激活状态样式 */
+		a.active {
+			background: #2c3e50;
+			color: #fff;
+			border-color: #2c3e50;
+		}
+		/* 修改内容区域样式 */
+		#b {
+			width: calc(100% - 20px);
+			margin: 10px auto;
+			background-color: #fff;
+			border-radius: 8px;
+			padding: 10px;
+			font-size: 12px;
+			border: 1px solid #e9ecef;
+			font-family: monospace;
+		}
+
+		/* 表格样式 */
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-top: 5px;
+		}
+
+		td {
+			border-bottom: 1px solid #e9ecef;
+			font-size: 14px;
+			cursor: default;
+		}
+
+		tr:hover td {
+			background-color: #f8f9fa;
+		}
+
+		/* 对话框样式 */
+		#dog {
+			border: 1px solid #e9ecef;
+			border-radius: 8px;
+			padding: 15px;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background: #fff;
+		}
+
+		#dog button {
+			padding: 6px 12px;
+			margin: 0 5px;
+			border: none;
+			border-radius: 4px;
+			background: #2c3e50;
+			color: white;
+			cursor: pointer;
+		}
+
+		/* 状态类样式 */
+		.cls1 { color: #28a745; }
+		.cls2 { color: #dc3545; }
+		.cls3 { color: #007bff; }
+
+		/* 输入框样式 */
+		#copytext {
+			width: 100%;
+			padding: 6px;
+			border: 1px solid #e9ecef;
+			border-radius: 4px;
+			margin-bottom: 8px;
+		}
+	</style>
+</head>
+<body>
+	<div class="wechetbt">
+		<img id="head" src="img/head.jpg"/>
+		<text id="nickname"></text>
+		<text id="coktm"></text>
+	</div>
+	<div style="border-bottom:1px solid rgb(1, 85, 26);">
+		<div style="display: none;" id="c">
+			<a href='wy.html' target='_blank'>网娱</a>
+			<a href='note.html' target='_blank'>记事本</a>
+			<a href='mf.html' target='_blank'>MF</a>
+			<a href='sml.html' target='_blank'>SML</a>
+			<a onclick="reuser()" tabindex="1">OUT</a>
+			<a onclick="getlog('dblog')" tabindex="1">DB</a>
+			<a onclick="getfee('wy1')" tabindex="1">WY1</a>
+			<a onclick="getfee('wy2')" tabindex="1">WY2</a>
+			<a onclick="getfee('wy3')" tabindex="1">WY3</a>
+			<a onclick="wxeven('wy4')" tabindex="1">WY4</a>
+			<a onclick="getfee('jd1')" tabindex="1">JD1</a>
+			<a onclick="getfee('jd2')" tabindex="1">JD2</a>
+			<a onclick="getfee('jd3')" tabindex="1">JD3</a>
+			<a onclick="wxeven('jd4')" tabindex="1">JD4</a>
+			<a onclick="getfee('tt1')" tabindex="1">TT1</a>
+			<a onclick="getfee('tt2')" tabindex="1">TT2</a>
+			<a onclick="wxeven('tt4')" tabindex="1">TT4</a>
+			<a onclick="getfee('zl1')" tabindex="1">ZL1</a>
+			<a onclick="getfee('zl2')" tabindex="1">ZL2</a>
+			<a onclick="wxeven('zl4')" tabindex="1">ZL4</a>
+			<a onclick="getfee('log')" tabindex="1">LOG</a>
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+	<div id="b">数据尚未加载</div>
+	<dialog id='dog'>
+		<p>message</p>
+		<div>
+			<text id='dogbtn'></text>
+			<text><button onclick=dog.close()>关闭</button></text>
+		</div>
+	</dialog>
+</body>
+</html>
+<script src="js/opid.js" type="text/javascript"></script>
+<script type="text/javascript">
+	window.onload = async function() {
+		history.pushState(null, null, null)
+		window.addEventListener('popstate', function () {history.pushState(null, null, null)})
+		await getopid();getuser();pagerun()
+		
+		// 为所有按钮添加点击事件
+		const buttons = document.querySelectorAll('#c a');
+		buttons.forEach(button => {
+			button.addEventListener('click', function() {
+				// 移除所有按钮的active类
+				buttons.forEach(btn => btn.classList.remove('active'));
+				// 为当前点击的按钮添加active类
+				this.classList.add('active');
+			});
+		});
+	}
+	async function getfee(id){
+		b.innerHTML="正在获取数据"
+		let db = await postdb(`${data.wenlvtong}/myapi/feeapi.php`,{id,opid:data.opid})
+		if(!db){
+			b.innerHTML='无记录'
+			return
+		}
+		dogbtn.innerHTML=''
+		let str = "<input type='text' id='copytext' style='width:100%' readonly='true'/><table>"
+		for(i=0;i<db.length;i++){
+			if(db[i][3]==null){db[i][3]=""}
+			if(db[i][4]==0){str += '<tr class=cls1>'}
+			if(db[i][4]==2){str += '<tr class=cls3>'}
+			str += `<td width=170px>${db[i][0]}</td><td onclick=fuzhi('${db[i][5]}','${db[i][6]}')>${db[i][1]}</td><td>${db[i][2]}</td><td>${db[i][3]}</td></tr>`
+		}
+		str += '</table>'
+		b.innerHTML=str
+		return
+	}
+	async function getlog(id){
+		b.innerHTML="正在获取数据"
+		let db = await postdb(`${data.serverurl}/myapi/feeapi.php`,{id,opid:data.opid})
+		if(!db){
+			b.innerHTML='无记录'
+			return
+		}
+		dogbtn.innerHTML=''
+		let str = "<table>"
+		for(i=0;i<db.length;i++){
+			str += `<tr><td>${db[i][0]}</td></tr>`
+		}
+		str += '</table>'
+		str = str.replace(/gC9NM/g, "马").replace(/4dCDk/g, "李")
+		b.innerHTML=str
+	}
+	async function wxeven(id){
+		let bar = id.substring(0, 2) + "5"
+		b.innerHTML="正在获取数据"
+		db=await postdb(`${data.wenlvtong}/myapi/feeapi.php`,{id,opid:data.opid})
+		dogbtn.innerHTML=`<button onclick=deleven('${bar}')>确定</button>`
+		document.querySelector('#dog > p').innerHTML=`确定清空'${bar}'数据吗?`
+		let str = `<div id='code' onclick=dog.showModal() style='cursor: pointer'>数据量:${db.length}</div>`
+		str += '<table>'
+		for(i=0;i<db.length;i++){str+=`<tr><td width=80px>${db[i][0]}</td><td>${db[i][1]}</tr></td>`}
+		str += '</table>'
+		b.innerHTML=str
+	}
+	async function deleven(id){
+		dog.close()
+		b.innerHTML="正在获取数据"
+		await postdb(`${data.wenlvtong}/myapi/feeapi.php`,{id,opid:data.opid})
+		wxeven(id)
+		return
+	}
+	function pagerun(){
+		if(data.opid.length==28){
+			c.style.display=''
+			b.innerHTML=window.location.href
+		}
+	}
+    function fuzhi(str1,str2){
+		if(!IsPC()){return}
+		const copytxt = document.getElementById('copytext')
+		copytxt.value = `'${str1}'=>'${str2}',`
+		copytxt.select()
+		document.execCommand('copy')
+	}
+	async function postdb(url, db1) {
+		try {
+			let response = await fetch(url, {
+				method: "POST",
+				headers: {"Content-Type": "application/x-www-form-urlencoded"},
+				body: JSON.stringify(db1)
+			});
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+			return await response.json();
+		} catch (error) {
+			b.innerHTML = "Data acquisition failed!<br><button onclick='getdb(1)'>重试</button>"; 
+		}
+	}
+	head.addEventListener('click',()=>{
+		if(window.location.search == ''){
+			b.innerHTML=window.location.href
+			return 0
+		}
+		window.location.href = window.location.origin + window.location.pathname
+	})
+</script>
