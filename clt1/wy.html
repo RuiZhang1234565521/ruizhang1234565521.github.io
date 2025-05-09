@@ -42,7 +42,7 @@
 		a:hover {color: #080;}
 		#a input {width: 150px;border: 0px;background-color: #DEF;text-align: center;}
 		#ssstr,#mon {font-size: 20px;width: 85px;cursor: default;margin: 0 5px;height: 27px;}
-		button {width: 60px;height: 27px;margin: 0 5px;background: #2c3e50;border: none; color: #fff;border-radius:3px;}
+		button {width: 60px;height: 27px;margin-right:10px;background: #2c3e50;border: none; color: #fff;border-radius:3px;}
 		textarea {width: 100%;overflow: auto;word-break: break-all;resize: none;background-color: #DEF;}
 		#dog {width: 200px; border-radius:10px; font-size: 14px;}
 		#dog div{margin-top: 20px; text-align: right;}
@@ -115,7 +115,7 @@
 		if(db.length>0){
 			data.str = "<table><tr><td>日期</td><td>姓名</td><td>会员</td><td>临时</td><td>押金</td>"
 			data.str += "<td>点卡</td><td>商品</td><td>进货</td><td>其它</td><td>结余</td></tr>"
-			let dbhy = 0,dbls = 0,dbdk = 0,dbsp = 0,dbjh = 0, wxtx = 0, dbkz = 0,swxtx = 0,dbsum = 0 ,bz1
+			let dbhy = 0,dbls = 0,dbdk = 0,dbsp = 0,dbjh = 0, wxtx = 0, dbkz = 0,swxtx = 0,dbsum = 0 ,bz1,sAll1 = 0
 			db.forEach(function(value) {
 				bz1 = value.data1.split("|")
 				dbhy += +bz1[1]
@@ -133,6 +133,9 @@
 				dbsum += +bz1[9]
 				dbsum = +dbsum.toFixed(2)
 				swxtx += getStrFastNum(bz1[10],"万象提现")
+				if(data.ssstr){
+					sAll1 += getStrFastNum(bz1[10],data.ssstr)
+			    }
 				data.str += "<tr id=" + value.id + ">"
 				data.str += "<td onclick=xiugai(event)>" + value.time.slice(5, 10) + "</td>"
 				data.str += "<td>" + bz1[0] +"</td>"
@@ -150,7 +153,13 @@
 			data.str += "商品" + dbsp + "-" + dbjh + "=" + (+dbsp - +dbjh) + "(" + ((+dbsp - +dbjh)*100/+dbsp).toFixed(0) + "%)" 
 			data.str += "开支" + dbkz + "预测:" + yc(db[db.length-1] , dbsum) + " </td><td>" + Math.ceil(dbsum) + "</td></tr>"
 			data.str += "</table>"
-		}else{data.str = "<div>无数据</div>"}
+			if(sAll1){b.innerHTML = data.ssstr+" 统计总数为: "+sAll1}
+			else{b.innerHTML=window.location.href}
+		}else{
+			data.str = "<div>无数据</div>"
+			b.innerHTML=window.location.href
+		}
+		data.str += "<button onclick=shouye()>首页</button>"
 		data.str += "<input onclick=mthList() value=" + data.date1 + " readonly='value' size=5 id='mon'>"
 		data.str += "<button onclick=dbadd()>添加</button>"
 		data.str += "<input id='ssstr' value=" + data.ssstr + ">"
@@ -427,6 +436,10 @@
 			tempDate.setMonth(tempDate.getMonth() + 1);
 		}
 		return months;
+	}
+	function shouye(){
+		const currentMonth = new Date().toISOString().slice(0, 7);
+		sltMon(currentMonth);
 	}
 	head.addEventListener('click',()=>{
 		if(window.location.search == ''){
