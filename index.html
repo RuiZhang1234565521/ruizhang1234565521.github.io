@@ -1,88 +1,240 @@
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-	<meta charset='utf-8' />
-	<meta name=viewport content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no' />
-	<title>首页</title>
-<style type="text/css">
-	/* 确保页面高度等于视口高度，且不出现滚动条 */
-	html, body {
-		height: 100%;
-		width: 600px;
-		margin: 0 auto;
-		padding: 0;
-		overflow: hidden; /* 隐藏滚动条 */
-	}
-	/* 页面布局 */
-	body {
-		display: flex;
-		flex-direction: column;
-		background-color: #ccc;
-	}
-	/* 顶部区域 */
-	#a {
-		background-color: #6C9;
-		height: 70px; /* 固定高度 */
-		flex-shrink: 0; /* 禁止缩小 */
-	}
-	/* 内容区域 */
-	#b {
-		background-color: #fff;
-		flex-grow: 1; /* 填充剩余空间 */
-		overflow: auto; /* 允许内容区域滚动 */
-		padding: 20px;
-		box-sizing: border-box; /* 防止 padding 影响高度 */
-	}
-	/* 搜索框样式 */
-	#search-box {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin-top: 20px;
-	}
-	#search-input {
-		width: 300px;
-		height: 40px;
-		padding: 5px;
-		font-size: 16px;
-	}
-	#search-button {
-		height: 40px;
-		padding: 0 20px;
-		font-size: 16px;
-		margin-left: 10px;
-		cursor: pointer;
-	}
-	/* 当前 URL 显示样式 */
-	#current-url {
-		text-align: center;
-		margin-top: 20px;
-		font-size: 14px;
-		color: #666;
-	}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科学计算器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .calculator {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .history {
+            margin-bottom: 10px;
+            height: 300px; /* 固定高度，大约可显示10行历史记录 */
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: white;
+        }
+        #display {
+            width: 100%;
+            height: 50px;
+            font-size: 24px;
+            text-align: right;
+            margin-bottom: 10px;
+            padding: 5px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        button {
+            height: 50px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #e0e0e0;
+        }
+        .operator {
+            background-color: #ff9500;
+            color: white;
+        }
+        .operator:hover {
+            background-color: #e68a00;
+        }
+        .equals {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .equals:hover {
+            background-color: #45a049;
+        }
+        .clear {
+            background-color: #f44336;
+            color: white;
+        }
+        .clear:hover {
+            background-color: #d32f2f;
+        }
+        .history-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            line-height: 1.4;
+        }
+        .history-item:hover {
+            background-color: #f9f9f9;
+        }
+        .history-item:last-child {
+            border-bottom: none;
+        }
+    </style>
 </head>
 <body>
-	<div id='a'></div>
-	<div id='b'>
-		<!-- 显示当前URL -->
-		<div id="current-url"></div>
-		<!-- 百度搜索功能 -->
-		<div id="search-box">
-			<input type="text" id="search-input" placeholder="请输入搜索关键词">
-			<button id="search-button" onclick="searchBaidu()">百度搜索</button>
-		</div>
-	</div>
+    <div class="calculator">
+        <div class="history">
+            <div id="history-list"></div>
+        </div>
+        
+        <input type="text" id="display" readonly>
+        
+        <div class="buttons">
+            <button class="clear" onclick="clearDisplay()">C</button>
+            <button onclick="appendToDisplay('(')">(</button>
+            <button onclick="appendToDisplay(')')">)</button>
+            <button class="operator" onclick="appendToDisplay('/')">/</button>
+            
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button class="operator" onclick="appendToDisplay('*')">×</button>
+            
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button class="operator" onclick="appendToDisplay('-')">-</button>
+            
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button class="operator" onclick="appendToDisplay('+')">+</button>
+            
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button class="clear" onclick="backspace()">⌫</button>
+            <button class="equals" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <script>
+        let history = [];
+        
+        function appendToDisplay(value) {
+            document.getElementById('display').value += value;
+        }
+        
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+        
+        function backspace() {
+            let display = document.getElementById('display');
+            display.value = display.value.slice(0, -1);
+        }
+        
+        function calculate() {
+            let display = document.getElementById('display');
+            let expression = display.value;
+            
+            if (!expression) return;
+            
+            try {
+                // 替换×为*，以便eval能正确计算
+                let evalExpression = expression.replace(/×/g, '*');
+                
+                // 使用Function构造函数来避免直接使用eval的安全风险
+                let result = new Function('return ' + evalExpression)();
+                
+                // 保留6位小数
+                if (Number.isInteger(result)) {
+                    result = result.toString();
+                } else {
+                    result = parseFloat(result.toFixed(6)).toString();
+                }
+                
+                // 添加到历史记录（重复内容会移动到最新位置）
+                addToHistory(expression, result);
+                
+                // 显示结果后清空输入框
+                display.value = '';
+            } catch (error) {
+                alert('计算错误: ' + error.message);
+            }
+        }
+        
+        function addToHistory(expression, result) {
+            // 检查是否已存在相同的表达式和结果
+            const existingIndex = history.findIndex(item => 
+                item.expression === expression && item.result === result
+            );
+            
+            if (existingIndex !== -1) {
+                // 如果已存在相同记录，则从原位置移除
+                const [existingItem] = history.splice(existingIndex, 1);
+                // 并添加到数组末尾（最新位置）
+                history.push(existingItem);
+            } else {
+                // 如果是新记录，添加到数组末尾
+                history.push({
+                    expression: expression,
+                    result: result
+                });
+                
+                // 限制历史记录数量
+                if (history.length > 10) {
+                    history.shift(); // 移除最旧的记录
+                }
+            }
+            
+            // 更新历史列表显示
+            updateHistoryDisplay();
+        }
+        
+        function updateHistoryDisplay() {
+            let historyList = document.getElementById('history-list');
+            historyList.innerHTML = '';
+            
+            // 从旧到新显示历史记录（最新的在最后）
+            history.forEach(item => {
+                let historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.innerHTML = `<strong>${item.expression}</strong> = ${item.result}`;
+                
+                // 点击历史记录项可以将其表达式填入输入框
+                historyItem.addEventListener('click', function() {
+                    document.getElementById('display').value = item.expression;
+                });
+                
+                historyList.appendChild(historyItem);
+            });
+        }
+        
+        // 键盘支持
+        document.addEventListener('keydown', function(event) {
+            const key = event.key;
+            
+            if (/[0-9\.\+\-\*\/\(\)]/.test(key)) {
+                appendToDisplay(key);
+            } else if (key === 'Enter') {
+                calculate();
+            } else if (key === 'Backspace') {
+                backspace();
+            } else if (key === 'Escape') {
+                clearDisplay();
+            } else if (key.toLowerCase() === 'c') {
+                clearDisplay();
+            }
+        });
+    </script>
 </body>
 </html>
-<script type="text/javascript">
-	// 显示当前URL
-	document.getElementById('current-url').innerText = '当前URL: ' + window.location.href;
-
-	// 百度搜索功能
-	function searchBaidu() {
-		var keyword = document.getElementById('search-input').value;
-		if (keyword) {
-			window.open('https://www.baidu.com/s?wd=' + encodeURIComponent(keyword), '_blank');
-		}
-	}
-</script>
