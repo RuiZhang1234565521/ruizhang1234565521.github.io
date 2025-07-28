@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GB2312编码文本查看器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .input-container {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        #fileUrl {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+        }
+        #loadBtn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        #loadBtn:hover {
+            background-color: #45a049;
+        }
+        #content {
+            border: 1px solid #ddd;
+            padding: 15px;
+            min-height: 300px;
+            white-space: pre-wrap;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        .status {
+            margin-top: 10px;
+            font-style: italic;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>GB2312编码文本查看器</h1>
+    
+    <div class="input-container">
+        <input type="text" id="fileUrl" placeholder="输入TXT文件的URL，例如：https://example.com/file.txt" value="https://ruizhang1234565521.github.io/m2list/list6.txt">
+        <button id="loadBtn">加载</button>
+    </div>
+    
+    <div class="status" id="status">就绪</div>
+    
+    <div id="content">加载的内容将显示在这里...</div>
+    
+    <script>
+        document.getElementById('loadBtn').addEventListener('click', function() {
+            const url = document.getElementById('fileUrl').value.trim();
+            const contentDiv = document.getElementById('content');
+            const statusDiv = document.getElementById('status');
+            
+            if (!url) {
+                statusDiv.textContent = '请输入有效的URL';
+                return;
+            }
+            
+            statusDiv.textContent = '正在加载...';
+            contentDiv.textContent = '加载中，请稍候...';
+            
+            // 使用fetch API获取文件内容
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('网络响应不正常');
+                    }
+                    return response.arrayBuffer();
+                })
+                .then(arrayBuffer => {
+                    // 使用TextDecoder以GB2312解码
+                    // 注意：某些浏览器可能不支持GB2312，可以尝试gbk
+                    const decoder = new TextDecoder('gb2312');
+                    const decodedText = decoder.decode(arrayBuffer);
+                    
+                    contentDiv.textContent = decodedText;
+                    statusDiv.textContent = '加载完成';
+                })
+                .catch(error => {
+                    contentDiv.textContent = '加载失败: ' + error.message;
+                    statusDiv.textContent = '错误';
+                    console.error('加载失败:', error);
+                });
+        });
+    </script>
+    
+    <noscript>
+        <p style="color: red;">此网页需要JavaScript支持才能正常工作。</p>
+    </noscript>
+</body>
+</html>
