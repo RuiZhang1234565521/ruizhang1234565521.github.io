@@ -1,0 +1,106 @@
+[server]
+;标题=颜色|服务器IP|服务器端口|微端IP|微端端口(0表示不使用微端)|其他
+邹平传奇=0|144.123.142.106|4050|144.123.142.106|4000|2022-8-1
+
+
+[gm]
+config=http://144.123.142.106:4998/guangmang/config.txt|1
+pak=http://144.123.142.106:4998/guangmang/pak.txt|1
+wzl=http://144.123.142.106:4998/guangmang/wzl.txt|1
+map=http://144.123.142.106:4998/guangmang/map.txt|1
+wil=
+wav=
+ui=http://144.123.142.106:4998/guangmang/ui.zip|1
+补丁文件夹=http://144.123.142.106:4998/guangmang/buding.zip|1
+NewopUI=http://144.123.142.106:4998/guangmang/NewopUI.zip|1
+http微端=http://144.123.142.106:4998/guangmang/httpmir/filecount.txt|1|0|0
+
+职业=战|法|道
+性别=男|女
+新手地图=
+主城地图=
+npc面板拉伸=0.4
+
+
+[字体]
+;具体类型=字体大小|描边宽度|描边颜色
+;如果不填写默认为 20|4|0  
+;字体最大50 描边最大10 颜色最大255
+玩家数值= 16|4|0       
+玩家名称= 18|4|0  
+怪物数值= 16|4|0  
+怪物名称= 16|4|0  
+npc名称= 18|4|0  
+物品名称= 16|4|0  
+综合聊天= 20|4|0  
+其他= 18|4|0
+
+
+[保护吃药]
+hp列表=强效太阳水|万年雪霜|雪莲|大还丹|盟重传送石
+mp列表=强效太阳水|万年雪霜|雪莲|大还丹
+待解包=疗伤药包|万年雪霜包|随机传送卷包|超级魔法药
+解包后=疗伤药|万年雪霜|随机传送卷|强效魔法药
+
+[绿色公告]
+健康公告=1|1.5
+适龄提示=1
+
+
+
+[skillButton]
+0=app.Pak|0
+1=app.Pak|1
+2=app.Pak|2
+3=app.Pak|3
+4=app.Pak|4
+5=app.Pak|5
+6=app.Pak|6
+7=app.Pak|7
+8=app.Pak|8
+9=app.Pak|9
+10=app.Pak|10
+11=app.Pak|11
+12=app.Pak|12
+13=app.Pak|13
+14=app.Pak|14
+15=app.Pak|15
+16=app.Pak|16
+17=app.Pak|17
+18=app.Pak|18
+19=app.Pak|19
+20=app.Pak|20
+21=app.Pak|21
+22=app.Pak|22
+23=app.Pak|23
+24=app.Pak|24
+25=app.Pak|25
+26=app.Pak|26
+27=app.Pak|27
+28=app.Pak|28
+29=app.Pak|29
+31=app.Pak|31
+32=app.Pak|32
+33=app.Pak|33
+35=app.Pak|35
+36=app.Pak|36
+37=app.Pak|37
+39=app.Pak|36
+42=app.Pak|42
+44=app.Pak|44
+45=app.Pak|45
+48=app.Pak|48
+50=app.Pak|48
+51=app.Pak|51
+52=app.Pak|52
+55=app.Pak|55
+56=app.Pak|56
+57=app.Pak|57
+58=app.Pak|58
+66=app.Pak|66
+71=app.Pak|71
+74=app.Pak|74
+75=app.Pak|75
+82=app.Pak|82
+84=app.Pak|84
+86=app.Pak|86
