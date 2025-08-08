@@ -19,3 +19,4 @@
 
 
 [Upgrade]
+0=0     Wav     sound.lst     b72d5195f26a6ee926aa9c15a8cf7d48     http://144.123.142.106:4998/m2list/upgrade/sound.lst
