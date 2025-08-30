@@ -1,5 +1,5 @@
 var data={
-  opidurl:  'https://a0db306d.xy.proaa.top/proxy/sf',
+  opidurl:  'http://tt.cycs666.com:4998',
   serverurl:'https://a0db306d.xy.proaa.top/proxy/sf',
   wenlvtong:'https://tt.cycs666.com:4999',
 }
