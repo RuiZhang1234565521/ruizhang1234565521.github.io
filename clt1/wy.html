@@ -72,10 +72,10 @@
 <script type="text/javascript">
 	let defaultTime = new Date(Date.parse(new Date)-57600000).toISOString()
 	data={
+		dbname: "wy",
 		date1:defaultTime.slice(0, 7),
 		year0:defaultTime.slice(0, 4),
-		ssstr:"",
-		dbname: "wy"
+		ssstr:""
 	}
 	window.onload = async function() {
 		history.pushState(null, null, null)
