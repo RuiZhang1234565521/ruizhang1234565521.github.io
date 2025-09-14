@@ -10,7 +10,6 @@
 			width: 700px;
 			background: url(img/bg-1.jpg);
 		}
-		/* 头部样式 */
 		.wechetbt {
 			background: #2c3e50;
 			height: 50px;
@@ -184,7 +183,7 @@
 	async function shangpin(e){
 		let id = e
 		let db0 = {mode:1,opid:data.opid}
-		db0.sql = `select id,data2 from ${data.dbname} where id = ${(id-1)} or id = ${id}`
+		db0.sql = `select id,data2 from ${data.dbname} where id = ${id-1} or id = ${id}`
 		a.innerHTML=db0.sql
 		let db = await postdb(db0)
 		a.innerHTML+="<br><br><br>" + e  + '__' + db.length + "<br><br><br>已经没有数据了!<br><button onclick=fanhui()>首页</button>"
