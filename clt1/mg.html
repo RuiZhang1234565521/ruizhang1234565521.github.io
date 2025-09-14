@@ -71,6 +71,7 @@
 <script type="text/javascript">
 	let defaultTime = new Date(Date.parse(new Date)-57600000).toISOString()
 	data.dbname= "mg"
+	data.start= 2025
     data.date1 = defaultTime.slice(0, 7)
 	data.year0 = defaultTime.slice(0, 4)
 	data.ssstr = ""
@@ -373,8 +374,8 @@
 		let db = await postdb(db0)
 		let str = '<table><tr><td>年份</td><td>一月</td><td>二月</td><td>三月</td><td>四月</td><td>五月</td><td>六月</td>'
 		str += '<td>七月</td><td>八月</td><td>九月</td><td>十月</td><td>十一</td><td>十二</td><td>合计</td></tr>'
-		str += '<tr><td>2016</td><td colspan=8></td>'
-		let sumall = 0, sum = 0 ,y=2016
+		str += `<tr><td>${data.start}</td><td colspan=8></td>`
+		let sumall = 0, sum = 0 ,y=data.start
 		for (var i=0; i<db.length-1;i++) {
 			sum += Math.ceil(db[i][4])
 			str += '<td onclick=gotomon(\'' + db[i][0] + '\')>' + Math.ceil(db[i][4]) +'</td>'
@@ -412,7 +413,7 @@
 	function mthList(){
 		data.ssstr = ssstr.value.replace(/ /g, '')
 		let str = '<div class=mthList>'
-		let months = generateMonthsFromToNow('2016-09')
+		let months = generateMonthsFromToNow(`${data.start}-09`)
 		for (const value of months) {
 			str += `<div class='mthitem' onclick=sltMon('${value}')>${value}</div>`
 			if(value.endsWith("-12")){str+="<div style='width:100%'></div>"}
