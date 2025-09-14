@@ -74,6 +74,7 @@
     data.date1 = defaultTime.slice(0, 7)
 	data.year0 = defaultTime.slice(0, 4)
 	data.ssstr = ""
+	data.dbname= "wy"
 	window.onload = async function() {
 		history.pushState(null, null, null)
 		window.addEventListener('popstate', function () {history.pushState(null, null, null)})
@@ -86,12 +87,12 @@
 		if(x==1){
 			let date1 = data.date1 + '-02'
 			let date2 = nextmon(data.date1) + '-02'
-			db0.sql = `select id,time,data1 from wy where time >= '${date1}' and time <= '${date2}' order by time limit 5000`
+			db0.sql = `select id,time,data1 from data.dbname where time >= '${date1}' and time <= '${date2}' order by time limit 5000`
 		}
 		if(x==2){
 			let date1 = data.year0 + '-01-01'
 			let date2 = data.year0 + '-12-31 23:59:59'
-			db0.sql = `select id,time,data1 from wy where time >= '${date1}' and time <= '${date2}' and data1 like '%${data.ssstr}%' collate utf8_general_ci order by time limit 500`
+			db0.sql = `select id,time,data1 from data.dbname where time >= '${date1}' and time <= '${date2}' and data1 like '%${data.ssstr}%' collate utf8_general_ci order by time limit 500`
 		}
 		a.innerHTML=db0.sql
 		let db = await postdb(db0)
@@ -183,7 +184,7 @@
 	async function shangpin(e){
 		let id = e
 		let db0 = {mode:1,opid:data.opid}
-		db0.sql = "select id,data2 from wy where id = " + (id-1) + " or id = " + id
+		db0.sql = "select id,data2 from data.dbname where id = " + (id-1) + " or id = " + id
 		a.innerHTML=db0.sql
 		let db = await postdb(db0)
 		a.innerHTML+="<br><br><br>" + e  + '__' + db.length + "<br><br><br>已经没有数据了!<br><button onclick=fanhui()>首页</button>"
@@ -247,8 +248,8 @@
 		if(data1.match(/\|/g).length!=10){$("#dog p").html('表单错误请检查:'+data1.match(/\|/g).length);dog.showModal();return}
 		let data2 = yaSuo(arr[13])
 		let db0 = {mode:1,opid:data.opid}
-		if(x==1){db0.sql = `insert into wy (id,time,data1,data2) values ('${id}','${time}','${data1}','${data2}')`}
-		if(x==2){db0.sql = `update wy set time='${time}',data1='${data1}',data2='${data2}' where id=${id}`}
+		if(x==1){db0.sql = `insert into data.dbname (id,time,data1,data2) values ('${id}','${time}','${data1}','${data2}')`}
+		if(x==2){db0.sql = `update data.dbname set time='${time}',data1='${data1}',data2='${data2}' where id=${id}`}
 		data.oldstr = a.innerHTML
 		a.innerHTML=db0.sql
 		let db = await postdb(db0)
@@ -256,7 +257,7 @@
 	}
 	async function dbadd(){
 		let db0 = {mode:1,opid:data.opid}
-		db0.sql = "select id from wy order by id desc limit 1"
+		db0.sql = "select id from data.dbname order by id desc limit 1"
 		a.innerHTML=db0.sql
 		let db = await postdb(db0)
 		if(db){id = +db[0].id + 1}else{id = 1}
@@ -282,7 +283,7 @@
 		if(!IsPC()){return}
 		let id = e.target.parentNode.id
 		let db0 = {mode:1,opid:data.opid}
-		db0.sql = `select id,time,data1,data2 from wy where id = ${id}`
+		db0.sql = `select id,time,data1,data2 from data.dbname where id = ${id}`
 		a.innerHTML=db0.sql
 		let db = await postdb(db0)
 		data1 = db[0].data1.split("|")
@@ -305,7 +306,7 @@
 	}
 	async function shanchu(id){
 		let db0 = {mode:1,opid:data.opid}
-		db0.sql = "select id from wy order by id desc limit 1"
+		db0.sql = "select id from data.dbname order by id desc limit 1"
 		let db = await postdb(db0)
 		id0 = +db[0].id
 		if(+id < id0){
@@ -321,7 +322,7 @@
 	async function shanchu2(id){
 		dog.close()
 		let db0 = {mode:1,opid:data.opid}
-		db0.sql = `DELETE FROM wy WHERE id = ${id}`
+		db0.sql = `DELETE FROM data.dbname WHERE id = ${id}`
 		shanchumsg.innerHTML=db0.sql
 		let db = await postdb(db0)
 		if(db=='E2'){
@@ -368,7 +369,7 @@
 		return 0
 	}
 	b.addEventListener('click',async ()=>{
-		let db0 = {mode:2,opid:data.opid,sql:'wy'}
+		let db0 = {mode:2,opid:data.opid,sql:'data.dbname'}
 		a.innerHTML=db0.sql
 		let db = await postdb(db0)
 		let str = '<table><tr><td>年份</td><td>一月</td><td>二月</td><td>三月</td><td>四月</td><td>五月</td><td>六月</td>'
