@@ -3,7 +3,7 @@ var data={
   serverurl:'https://ha126.asia:82',
   wenlvtong:'https://ha126.asia:4999',
 }
-async function getopid() {asia
+async function getopid() {
   try {
     const cokopid = getCookie('opid');
     if (cokopid.length === 28) {
