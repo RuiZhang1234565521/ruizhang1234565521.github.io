@@ -1,9 +1,9 @@
 var data={
-  opidurl:  'https://a0db306d.xy.proaa.top/proxy/sf',
-  serverurl:'https://a0db306d.xy.proaa.top/proxy/sf',
-  wenlvtong:'https://tt.cycs666.com:4999',
+  opidurl:  'https://ha126.asia:82',
+  serverurl:'https://ha126.asia:82',
+  wenlvtong:'https://ha126.asia:4999',
 }
-async function getopid() {
+async function getopid() {asia
   try {
     const cokopid = getCookie('opid');
     if (cokopid.length === 28) {
