@@ -1,5 +1,5 @@
 var data={
-  opidurl:  'https://ha126.asia:82',
+  opidurl:  'https://ha126.asia:82/porxy-sf',
   serverurl:'https://ha126.asia:4999',
   wenlvtong:'https://ha126.asia:4999',
 }
