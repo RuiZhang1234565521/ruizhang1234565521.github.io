@@ -1,4 +1,5 @@
 var data={
+  codeurl:  'https://fc-mp-119e35e3-c626-4e18-bdb1-b10921c7ee46.next.bspapp.com/wxcode',
   opidurl:  'https://ha126.asia:82',
   serverurl:'https://ha126.asia:4999',
   wenlvtong:'https://ha126.asia:4999',
@@ -14,7 +15,7 @@ async function getopid() {
     const code = getUrlParam('code');
     if (!code || code.length !== 32) {
       const encodedUrl = encodeUriForRedirection(window.location);
-      const redirectionUrl = `${data.opidurl}/myapi/code2.php?state=${encodedUrl}`;
+      const redirectionUrl = `${data.codeurl}/myapi/code2.php?state=${encodedUrl}`;
       window.location.replace(redirectionUrl);
       return;
     }
