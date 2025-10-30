@@ -15,7 +15,13 @@ async function getopid() {
     const code = getUrlParam('code');
     if (!code || code.length !== 32) {
       const encodedUrl = encodeUriForRedirection(window.location);
-      window.location.replace(`${data.codeurl}?state=${encodedUrl}`);
+      
+      // 直接拼接微信授权URL（绕过云函数）
+      const appid = "wx20f218ebe4acffc7";
+      const redirect_uri = encodeURIComponent("https://ha126.asia:82/myapi/code2.php");
+      const authUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_base&state=${encodedUrl}#wechat_redirect`;
+      
+      window.location.replace(authUrl);
       return;
     }
 
