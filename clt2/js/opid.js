@@ -15,7 +15,7 @@ async function getopid() {
     const code = getUrlParam('code');
     if (!code || code.length !== 32) {
       const encodedUrl = encodeUriForRedirection(window.location);
-      const redirectionUrl = `${data.codeurl}/myapi/code2.php?state=${encodedUrl}`;
+      const redirectionUrl = `${data.codeurl}?state=${encodedUrl}`;
       window.location.replace(redirectionUrl);
       return;
     }
