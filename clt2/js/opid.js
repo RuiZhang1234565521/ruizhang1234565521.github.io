@@ -15,7 +15,7 @@ async function getopid() {
     if (!code || code.length !== 32) {
       const encodedUrl = encodeUriForRedirection(window.location);
       const appid = "wx20f218ebe4acffc7";
-      const redirect_uri = encodeURIComponent("https://ha126.asia:82/myapi/code2.php");
+      const redirect_uri = encodeURIComponent(`${data.opidurl}/myapi/code2.php`);
       const authUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_base&state=${encodedUrl}#wechat_redirect`;
       window.location.replace(authUrl);
       return;
