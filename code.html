@@ -128,11 +128,11 @@
                             </div>
                         </div>
                     `;
-                    
+                    window.location.href = redirectUrl;
                     // 延迟一秒后跳转，让用户看到信息
-                    setTimeout(() => {
-                        window.location.href = redirectUrl;
-                    }, 1000);
+                    //setTimeout(() => {
+                    //    window.location.href = redirectUrl;
+                    //}, 1000);
                 } else {
                     throw new Error('响应中未找到有效的跳转URL');
                 }
