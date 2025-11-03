@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正在登陆</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            line-height: 1.6;
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #e9f7fe;
+            border-left: 4px solid #2196F3;
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #2196F3;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .error {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+            color: #c62828;
+        }
+        .success {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>代码转换与跳转</h1>
+        <div id="status" class="status">
+            <div class="loading"></div>
+            正在处理请求，请稍候...
+        </div>
+    </div>
+
+    <script>
+        // 获取URL参数
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                code: params.get('code'),
+                state: params.get('state')
+            };
+        }
+
+        // 主处理函数
+        async function processRequest() {
+            const statusElement = document.getElementById('status');
+            
+            try {
+                // 获取参数
+                const { code, state } = getUrlParams();
+                
+                // 检查参数是否存在
+                if (!code || !state) {
+                    throw new Error('缺少必要的参数: code 或 state');
+                }
+                
+                // 更新状态信息
+                statusElement.innerHTML = `
+                    <div class="loading"></div>
+                    正在发送请求到服务器...
+                    <div style="margin-top: 10px; font-size: 0.9em;">
+                        参数: code=${code}, state=${state}
+                    </div>
+                `;
+                
+                // 发送请求到PHP接口
+                const apiUrl = `https://ha126.asia:82/myapi/code2.php?code=${encodeURIComponent(code)}&state=${encodeURIComponent(state)}`;
+                const response = await fetch(apiUrl);
+                
+                if (!response.ok) {
+                    throw new Error(`服务器响应错误: ${response.status}`);
+                }
+                
+                const responseText = await response.text();
+                
+                // 更新状态信息
+                statusElement.innerHTML = `
+                    <div class="loading"></div>
+                    请求成功，正在解析响应...
+                `;
+                
+                // 解析script标签中的URL
+                const scriptMatch = responseText.match(/<script>window\.location\.href='([^']+)'<\/script>/);
+                
+                if (scriptMatch && scriptMatch[1]) {
+                    const redirectUrl = scriptMatch[1];
+                    
+                    // 更新状态信息
+                    statusElement.innerHTML = `
+                        <div class="success">
+                            跳转地址已获取，即将跳转...
+                            <div style="margin-top: 10px; font-size: 0.9em; word-break: break-all;">
+                                ${redirectUrl}
+                            </div>
+                        </div>
+                    `;
+                    
+                    // 延迟一秒后跳转，让用户看到信息
+                    setTimeout(() => {
+                        window.location.href = redirectUrl;
+                    }, 1000);
+                } else {
+                    throw new Error('响应中未找到有效的跳转URL');
+                }
+                
+            } catch (error) {
+                // 显示错误信息
+                statusElement.innerHTML = `
+                    <div class="error">
+                        处理请求时出错: ${error.message}
+                        <div style="margin-top: 10px;">
+                            <button onclick="location.reload()">重试</button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // 页面加载完成后开始处理
+        document.addEventListener('DOMContentLoaded', processRequest);
+    </script>
+</body>
+</html>
