@@ -54,6 +54,28 @@
             border-left: 4px solid #4caf50;
             color: #2e7d32;
         }
+        .info-box {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 15px 0;
+            text-align: left;
+            font-size: 0.85em;
+            word-break: break-all;
+        }
+        button {
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0b7dda;
+        }
     </style>
 </head>
 <body>
@@ -62,6 +84,10 @@
         <div id="status" class="status">
             <div class="loading"></div>
             正在处理请求，请稍候...
+        </div>
+        <div id="info" class="info-box" style="display: none;">
+            <strong>处理详情:</strong>
+            <div id="info-content"></div>
         </div>
     </div>
 
@@ -75,13 +101,40 @@
             };
         }
 
+        // 处理state参数（替换特殊字符）
+        function processState(state, code) {
+            // 替换特殊字符
+            let processedState = state.replace(/0d0/g, ".").replace(/0g0/g, "/").replace(/0m0/g, ":");
+            
+            // 添加查询参数
+            if (processedState.indexOf("?") === -1) {
+                processedState += "?";
+            } else {
+                processedState += "&";
+            }
+            
+            processedState += "code=" + encodeURIComponent(code) + "&del=";
+            
+            return processedState;
+        }
+
         // 主处理函数
-        async function processRequest() {
+        function processRequest() {
             const statusElement = document.getElementById('status');
+            const infoElement = document.getElementById('info');
+            const infoContent = document.getElementById('info-content');
             
             try {
                 // 获取参数
                 const { code, state } = getUrlParams();
+                
+                // 显示参数信息
+                infoElement.style.display = 'block';
+                infoContent.innerHTML = `
+                    <div><strong>获取到的参数:</strong></div>
+                    <div>code: ${code || '未提供'}</div>
+                    <div>state: ${state || '未提供'}</div>
+                `;
                 
                 // 检查参数是否存在
                 if (!code || !state) {
@@ -91,51 +144,32 @@
                 // 更新状态信息
                 statusElement.innerHTML = `
                     <div class="loading"></div>
-                    正在发送请求到服务器...
-                    <div style="margin-top: 10px; font-size: 0.9em;">
-                        参数: code=${code}, state=${state}
-                    </div>
+                    正在处理参数...
                 `;
                 
-                // 发送请求到PHP接口
-                const apiUrl = `https://ha126.asia:82/myapi/code2.php?code=${encodeURIComponent(code)}&state=${encodeURIComponent(state)}`;
-                const response = await fetch(apiUrl);
+                // 处理state参数
+                const redirectUrl = processState(state, code);
                 
-                if (!response.ok) {
-                    throw new Error(`服务器响应错误: ${response.status}`);
-                }
-                
-                const responseText = await response.text();
+                // 更新信息显示
+                infoContent.innerHTML += `
+                    <div style="margin-top: 10px;"><strong>处理后的URL:</strong></div>
+                    <div>${redirectUrl}</div>
+                `;
                 
                 // 更新状态信息
                 statusElement.innerHTML = `
-                    <div class="loading"></div>
-                    请求成功，正在解析响应...
+                    <div class="success">
+                        处理完成，正在跳转...
+                        <div style="margin-top: 10px;">
+                            <button onclick="window.location.href='${redirectUrl}'">立即跳转</button>
+                        </div>
+                    </div>
                 `;
                 
-                // 解析script标签中的URL
-                const scriptMatch = responseText.match(/<script>window\.location\.href='([^']+)'<\/script>/);
-                
-                if (scriptMatch && scriptMatch[1]) {
-                    const redirectUrl = scriptMatch[1];
-                    
-                    // 更新状态信息
-                    statusElement.innerHTML = `
-                        <div class="success">
-                            正在登陆...
-                            <div style="margin-top: 10px; font-size: 0.9em; word-break: break-all;">
-                                ${redirectUrl}
-                            </div>
-                        </div>
-                    `;
+                // 延迟一秒后跳转，让用户看到信息
+                setTimeout(() => {
                     window.location.href = redirectUrl;
-                    // 延迟一秒后跳转，让用户看到信息
-                    //setTimeout(() => {
-                    //    window.location.href = redirectUrl;
-                    //}, 1000);
-                } else {
-                    throw new Error('响应中未找到有效的跳转URL');
-                }
+                }, 1000);
                 
             } catch (error) {
                 // 显示错误信息
