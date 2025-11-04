@@ -13,7 +13,8 @@
 			--border: #e0e0e0;
 			--radius: 8px;
 		}
-
+		@media screen and (min-width:400px) {body {width: 400px;}}
+		@media screen and (max-width:400px) {body {width: 99%;}}
 		body {
 			margin: 0 auto;
 			word-break: break-all;
@@ -22,21 +23,6 @@
 			min-height: 90vh;
 			padding-bottom: 20px;
 		}
-
-		@media screen and (min-width:400px) {
-			body {
-				width: 400px;
-				background: white;
-				box-shadow: 0 0 20px rgba(0,0,0,0.1);
-			}
-		}
-		@media screen and (max-width:400px) {
-			body {
-				width: 99%;
-				background: white;
-			}
-		}
-
 		#a {
 			min-height: 200px;
 			padding: 10px;
