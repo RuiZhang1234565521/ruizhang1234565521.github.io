@@ -313,7 +313,7 @@ b.addEventListener('click',async ()=>{
             sum=0
         }
     }
-    str+='<td colspan='+(12-((+data.startM+i-1)%12))+'></td><td>'+sum+'</td></tr><tr>'
+    str+='<td colspan='+(12-((+data.startM + i - 1)%12))+'></td><td>'+sum+'</td></tr><tr>'
     sumall+=sum
     str += '<td colspan=12></td><td colspan=2>' + sumall.toLocaleString() +'</td></tr>'
     str += '</table><button onclick=fanhui()>返回</button>'
