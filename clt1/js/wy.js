@@ -352,124 +352,27 @@ head.addEventListener('click',()=>{
     }
     window.location.href = window.location.origin + window.location.pathname
 })
-// b.addEventListener('click',async ()=>{
-//     let db0 = {mode:2,opid:data.opid,sql:data.dbname}
-//     a.innerHTML=db0.sql
-//     let db = await postdb(db0)
-//     let str = '<table><tr><td>年份</td><td>一月</td><td>二月</td><td>三月</td><td>四月</td><td>五月</td><td>六月</td>'
-//     str += '<td>七月</td><td>八月</td><td>九月</td><td>十月</td><td>十一</td><td>十二</td><td>合计</td></tr>'
-//     str += `<tr><td>${data.startY}</td><td colspan=${+data.startM-1}></td>`
-//     let sumall = 0, sum = 0 ,y=data.startY
-//     for (var i=0; i<db.length-1;i++) {
-//         sum += Math.ceil(db[i][4])
-//         str += '<td onclick=gotomon(\'' + db[i][0] + '\')>' + Math.ceil(db[i][4]) +'</td>'
-//         if(i%12==12 - +data.startM){
-//             y++
-//             str+=`<td>${sum}</td></tr><tr><td>${y}</td>`
-//             sumall+=sum
-//             sum=0
-//         }
-//     }
-//     str+='<td colspan='+(12-((+data.startM + i - 1)%12))+'></td><td>'+sum+'</td></tr><tr>'
-//     sumall+=sum
-//     str += '<td colspan=12></td><td colspan=2>' + sumall.toLocaleString() +'</td></tr>'
-//     str += '</table><button onclick=fanhui()>返回</button>'
-//     a.innerHTML=str
-// })
-b.addEventListener('click', async () => {
-    try {
-        // 准备查询数据
-        const dbQuery = {
-            mode: 2,
-            opid: data.opid,
-            sql: data.dbname
-        };
-        
-        // 更新标题并获取数据
-        a.innerHTML = dbQuery.sql;
-        const db = await postdb(dbQuery);
-        
-        // 生成表格HTML
-        const tableHTML = generateTableHTML(db);
-        a.innerHTML = tableHTML;
-        
-    } catch (error) {
-        console.error('数据加载失败:', error);
-        a.innerHTML = '数据加载失败，请重试';
-    }
-});
-
-/**
- * 生成表格HTML
- */
-function generateTableHTML(db) {
-    const months = ['一月', '二月', '三月', '四月', '五月', '六月', 
-                   '七月', '八月', '九月', '十月', '十一', '十二'];
-    
-    let html = '<table>';
-    
-    // 表头
-    html += '<tr><td>年份</td>';
-    months.forEach(month => html += `<td>${month}</td>`);
-    html += '<td>合计</td></tr>';
-    
-    // 表格内容
-    html += generateTableBody(db);
-    
-    html += '</table><button onclick="fanhui()">返回</button>';
-    return html;
-}
-
-/**
- * 生成表格主体
- */
-function generateTableBody(db) {
-    const { startY, startM } = data;
-    let currentYear = parseInt(startY);
-    let currentMonth = parseInt(startM) - 1; // 转换为0-based索引
-    
-    let html = `<tr><td>${currentYear}</td>`;
-    
-    // 第一年的空单元格
-    if (currentMonth > 0) {
-        html += `<td colspan="${currentMonth}"></td>`;
-    }
-    
-    let yearSum = 0;
-    let totalSum = 0;
-    const records = db.slice(0, -1); // 排除最后一条记录
-    
-    records.forEach((record, index) => {
-        const amount = Math.ceil(record[4]);
-        yearSum += amount;
-        
-        html += `<td onclick="gotomon('${record[0]}')">${amount}</td>`;
-        currentMonth++;
-        
-        // 每年结束时或记录结束时
-        if (currentMonth === 12 || index === records.length - 1) {
-            html += `<td>${yearSum}</td></tr>`;
-            totalSum += yearSum;
-            
-            // 如果不是最后一条记录，开始新的一行
-            if (index < records.length - 1) {
-                currentYear++;
-                currentMonth = 0;
-                yearSum = 0;
-                html += `<tr><td>${currentYear}</td>`;
-            }
+b.addEventListener('click',async ()=>{
+    let db0 = {mode:2,opid:data.opid,sql:data.dbname}
+    a.innerHTML=db0.sql
+    let db = await postdb(db0)
+    let str = '<table><tr><td>年份</td><td>一月</td><td>二月</td><td>三月</td><td>四月</td><td>五月</td><td>六月</td>'
+    str += '<td>七月</td><td>八月</td><td>九月</td><td>十月</td><td>十一</td><td>十二</td><td>合计</td></tr>'
+    str += `<tr><td>${data.startY}</td><td colspan=${+data.startM-1}></td>`
+    let sumall = 0, sum = 0 ,y=data.startY
+    for (var i=0; i<db.length-1;i++) {
+        sum += Math.ceil(db[i][4])
+        str += '<td onclick=gotomon(\'' + db[i][0] + '\')>' + Math.ceil(db[i][4]) +'</td>'
+        if(i%12==12 - +data.startM){
+            y++
+            str+=`<td>${sum}</td></tr><tr><td>${y}</td>`
+            sumall+=sum
+            sum=0
         }
-    });
-    
-    // 最后一行可能需要的空单元格
-    if (currentMonth < 12 && currentMonth > 0) {
-        html += `<td colspan="${12 - currentMonth}"></td>`;
-        html += `<td>${yearSum}</td></tr>`;
-        totalSum += yearSum;
     }
-    
-    // 总计行
-    html += `<tr><td colspan="12"></td><td colspan="2">${totalSum.toLocaleString()}</td></tr>`;
-    
-    return html;
-}
+    str+='<td colspan='+(12-((+data.startM + i - 1)%12))+'></td><td>'+sum+'</td></tr><tr>'
+    sumall+=sum
+    str += '<td colspan=12></td><td colspan=2>' + sumall.toLocaleString() +'</td></tr>'
+    str += '</table><button onclick=fanhui()>返回</button>'
+    a.innerHTML=str
+})
