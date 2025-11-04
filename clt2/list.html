@@ -101,9 +101,7 @@
 		let db = await postdb(`${data.serverurl}/myapi/feeapi.php`,{id,opid:data.opid})
 		if(!db){b.innerHTML='无记录';return}
 		dogbtn.innerHTML=''
-		let str = "<table>"
-		for(i=0;i<db.length;i++){str += `<tr><td>${db[i][0]}</td></tr>`}
-		str += '</table>'
+		let str = "<table>";for(i=0;i<db.length;i++){str += `<tr><td>${db[i][0]}</td></tr>`};str += '</table>'
 		str = str.replace(/gC9NM/g, "马").replace(/4dCDk/g, "李")
 		b.innerHTML=str
 	}
@@ -125,10 +123,8 @@
 	function pagerun(){if(data.opid.length==28){c.style.display='';b.innerHTML=window.location.href}}
     function fuzhi(str1,str2){
 		if(!IsPC()){return}
-		const copytxt = document.getElementById('copytext')
-		copytxt.value = `'${str1}'=>'${str2}',`
-		copytxt.select()
-		document.execCommand('copy')
+		const copytxt = document.getElementById('copytext');copytxt.value = `'${str1}'=>'${str2}',`;
+		copytxt.select();document.execCommand('copy')
 	}
 	async function postdb(url, db1) {
 		try {
