@@ -301,7 +301,7 @@ b.addEventListener('click',async ()=>{
     let db = await postdb(db0)
     let str = '<table><tr><td>年份</td><td>一月</td><td>二月</td><td>三月</td><td>四月</td><td>五月</td><td>六月</td>'
     str += '<td>七月</td><td>八月</td><td>九月</td><td>十月</td><td>十一</td><td>十二</td><td>合计</td></tr>'
-    str += `<tr><td>${data.startY}</td><td colspan=8></td>`
+    str += `<tr><td>${data.startY}</td><td colspan=${+data.startM-1}></td>`
     let sumall = 0, sum = 0 ,y=data.startY
     for (var i=0; i<db.length-1;i++) {
         sum += Math.ceil(db[i][4])
@@ -313,7 +313,7 @@ b.addEventListener('click',async ()=>{
             sum=0
         }
     }
-    str+='<td colspan='+(12-((i+8)%12))+'></td><td>'+sum+'</td></tr><tr>'
+    str+='<td colspan='+(12-((i+data.startM-1)%12))+'></td><td>'+sum+'</td></tr><tr>'
     sumall+=sum
     str += '<td colspan=12></td><td colspan=2>' + sumall.toLocaleString() +'</td></tr>'
     str += '</table><button onclick=fanhui()>返回</button>'
