@@ -306,7 +306,7 @@ b.addEventListener('click',async ()=>{
     for (var i=+data.startM; i<db.length-1;i++) {
         sum += Math.ceil(db[i][4])
         str += '<td onclick=gotomon(\'' + db[i][0] + '\')>' + Math.ceil(db[i][4]) +'</td>'
-        if(i%12==12){
+        if(i%12==11){
             y++
             str+=`<td>${sum}</td></tr><tr><td>${y}</td>`
             sumall+=sum
