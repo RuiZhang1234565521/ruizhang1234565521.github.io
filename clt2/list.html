@@ -4,140 +4,29 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title>List</title>
 	<style type="text/css">
-		body {
-			margin: 0 auto;
-			word-break: break-all;
-			background: #f8f9fa;
-			color: #333;
-		}
-
-		@media screen and (min-width: 400px) {
-			body {
-				width: 400px;
-			}
-		}
-
-		@media screen and (max-width: 400px) {
-			body {
-				width: 99%;
-			}
-		}
-
-		/* 头部样式 */
-		.wechetbt {
-			background: #2c3e50;
-			height: 50px;
-			color: #fff;
-			display: flex;
-			align-items: center;
-			padding: 0 15px;
-		}
-
-		.wechetbt img {
-			width: 45px;
-			height: 45px;
-			border-radius: 20%;
-			margin-right: 10px;
-			border: 1px solid #fff;
-		}
-
-		.wechetbt #coktm {
-			font-size: 12px;
-			margin-left: auto;
-			opacity: 0.8;
-		}
-
-		/* 按钮样式 */
-		a {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			float: left;
-			width: 55px;
-			height: 35px;
-			margin: 4px;
-			color: #2c3e50;
-			border-radius: 6px;
-			text-decoration: none;
-			cursor: default;
-			background: #fff;
-			border: 1px solid #e9ecef;
-			font-weight: 500;
-		}
-
-		a:hover {
-			background: #f8f9fa;
-		}
-		/* 新增按钮激活状态样式 */
-		a.active {
-			background: #2c3e50;
-			color: #fff;
-			border-color: #2c3e50;
-		}
-		/* 修改内容区域样式 */
-		#b {
-			width: calc(100% - 20px);
-			margin: 10px auto;
-			background-color: #fff;
-			border-radius: 8px;
-			padding: 10px;
-			font-size: 12px;
-			border: 1px solid #e9ecef;
-			font-family: monospace;
-		}
-
-		/* 表格样式 */
-		table {
-			width: 100%;
-			border-collapse: collapse;
-			margin-top: 5px;
-		}
-
-		td {
-			border-bottom: 1px solid #e9ecef;
-			font-size: 14px;
-			cursor: default;
-		}
-
-		tr:hover td {
-			background-color: #f8f9fa;
-		}
-
-		/* 对话框样式 */
-		#dog {
-			border: 1px solid #e9ecef;
-			border-radius: 8px;
-			padding: 15px;
-			position: fixed;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			background: #fff;
-		}
-
-		#dog button {
-			padding: 6px 12px;
-			margin: 0 5px;
-			border: none;
-			border-radius: 4px;
-			background: #2c3e50;
-			color: white;
-			cursor: pointer;
-		}
-
-		/* 状态类样式 */
-		.cls1 { color: #28a745; }
-		.cls2 { color: #dc3545; }
-		.cls3 { color: #007bff; }
-
-		/* 输入框样式 */
-		#copytext {
-			width: 100%;
-			padding: 6px;
-			border: 1px solid #e9ecef;
-			border-radius: 4px;
-			margin-bottom: 8px;
-		}
+		@media screen and (min-width: 400px) {body {width: 400px;}}
+		@media screen and (max-width: 400px) {body {width: 99%;}}
+		body {margin: 0 auto;word-break: break-all;background: #f8f9fa;color: #333;}
+		.wechetbt {background: #2c3e50;height: 50px;color: #fff;display: flex;align-items: center;padding: 0 15px;}
+		.wechetbt img {width: 45px;height: 45px;border-radius: 20%;margin-right: 10px;border: 1px solid #fff;}
+		.wechetbt #coktm {font-size: 12px;margin-left: auto;opacity: 0.8;}
+		a {display: flex;align-items: center;justify-content: center;float: left;width: 55px;height: 35px;margin: 4px;color: #2c3e50;
+		border-radius: 6px;text-decoration: none;cursor: default;background: #fff;border: 1px solid #e9ecef;font-weight: 500;}
+		a:hover {background: #f8f9fa;}
+		a.active {background: #2c3e50;color: #fff;border-color: #2c3e50;}
+		#b {width: calc(100% - 20px);margin: 10px auto;background-color: #fff;border-radius: 8px;padding: 10px;font-size: 12px;
+		border: 1px solid #e9ecef;font-family: monospace;}
+		table {width: 100%;border-collapse: collapse;margin-top: 5px;}
+		td {border-bottom: 1px solid #e9ecef;font-size: 14px;cursor: default;}
+		tr:hover td {background-color: #f8f9fa;}
+		#dog {border: 1px solid #e9ecef;border-radius: 8px;padding: 15px;position: fixed;
+		top: 50%;left: 50%;transform: translate(-50%, -50%);background: #fff;}
+		#dog button {padding: 6px 12px;margin: 0 5px;border: none;border-radius: 4px;
+		background: #2c3e50;color: white;cursor: pointer;}
+		#copytext {width: 100%;padding: 6px;border: 1px solid #e9ecef;border-radius: 4px;margin-bottom: 8px;}
+		.cls1 {color: #28a745;}
+		.cls2 {color: #dc3545;}
+		.cls3 {color: #007bff;}
 	</style>
 </head>
 <body>
