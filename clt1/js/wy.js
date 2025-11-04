@@ -340,7 +340,7 @@ async function postdb(db1) {
 function mthList(){
     data.ssstr = ssstr.value.replace(/ /g, '')
     let str = '<div class=mthList>'
-    let months = generateMonthsFromToNow(`${data.startY}-${data.startM}`)
+    let months = generateMonthsFromToNow(data.startY+'-'+data.startM)
     for (const value of months) {
         str += `<div class='mthitem' onclick=sltMon('${value}')>${value}</div>`
         if(value.endsWith("-12")){str+="<div style='width:100%'></div>"}
