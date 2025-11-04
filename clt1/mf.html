@@ -283,6 +283,7 @@
 			   }
 			}
 		}
+		str += "<div class='item'>"
 		str += "<div>收入:" + dbsum0 + "支出:" + dbsum1 + "结余:" + dbsum2 + "</div>"
 		str += "<div style='width: 95%;margin: 0 auto;'>"
 		str += "<input onclick='mthList()' value=" + data.date1 + " readonly='value' size=5 id='mon'>"
@@ -296,6 +297,7 @@
 		str += "<button onclick=year(1)>╋</button>"
 		str += '<div style="clear:both;height:10px;"></div>'
 		str += "</div><button onclick=benyue()>首页</button>"
+		str += "</div>"
 		data.maindb = str
 		a.innerHTML=str
 		if(data.ssstr!=""){
