@@ -301,12 +301,12 @@ b.addEventListener('click',async ()=>{
     let db = await postdb(db0)
     let str = '<table><tr><td>年份</td><td>一月</td><td>二月</td><td>三月</td><td>四月</td><td>五月</td><td>六月</td>'
     str += '<td>七月</td><td>八月</td><td>九月</td><td>十月</td><td>十一</td><td>十二</td><td>合计</td></tr>'
-    str += `<tr><td>${data.start}</td><td colspan=8></td>`
-    let sumall = 0, sum = 0 ,y=data.start
+    str += `<tr><td>${data.startY}</td><td colspan=8></td>`
+    let sumall = 0, sum = 0 ,y=data.startY
     for (var i=0; i<db.length-1;i++) {
         sum += Math.ceil(db[i][4])
         str += '<td onclick=gotomon(\'' + db[i][0] + '\')>' + Math.ceil(db[i][4]) +'</td>'
-        if(i%12==3){
+        if(i%12==12-data.startM){
             y++
             str+=`<td>${sum}</td></tr><tr><td>${y}</td>`
             sumall+=sum
@@ -340,7 +340,7 @@ async function postdb(db1) {
 function mthList(){
     data.ssstr = ssstr.value.replace(/ /g, '')
     let str = '<div class=mthList>'
-    let months = generateMonthsFromToNow(`${data.start}-09`)
+    let months = generateMonthsFromToNow(`${data.startY}-${data.startM}`)
     for (const value of months) {
         str += `<div class='mthitem' onclick=sltMon('${value}')>${value}</div>`
         if(value.endsWith("-12")){str+="<div style='width:100%'></div>"}
