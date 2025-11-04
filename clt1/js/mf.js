@@ -308,12 +308,7 @@ function mthList(){
     let str = '<div class=mthList>'
     let months = new Date()
     months = months.toISOString().split('-').slice(0, 2).join('-')
-    if(data.sqlname == 'myfamily'){
-        months = generateMonthsFromToNow('2019-02')
-    }
-    if(data.sqlname == 'shimenli'){
-        months = generateMonthsFromToNow('2020-04')
-    }
+    months = generateMonthsFromToNow(data.dbstart)
     for (const value of months) {
         str += `<div class='mthitem' onclick=sltMon('${value}')>${value}</div>`
         if(value.endsWith("-12")){str+="<div style='width:100%'></div>"}
