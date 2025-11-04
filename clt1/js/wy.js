@@ -303,17 +303,17 @@ b.addEventListener('click',async ()=>{
     str += '<td>七月</td><td>八月</td><td>九月</td><td>十月</td><td>十一</td><td>十二</td><td>合计</td></tr>'
     str += `<tr><td>${data.startY}</td><td colspan=${+data.startM-1}></td>`
     let sumall = 0, sum = 0 ,y=data.startY
-    for (var i=0; i<db.length-1;i++) {
+    for (var i=+data.startM; i<db.length-1;i++) {
         sum += Math.ceil(db[i][4])
         str += '<td onclick=gotomon(\'' + db[i][0] + '\')>' + Math.ceil(db[i][4]) +'</td>'
-        if(i%12==12-data.startM){
+        if(i%12==12){
             y++
             str+=`<td>${sum}</td></tr><tr><td>${y}</td>`
             sumall+=sum
             sum=0
         }
     }
-    str+='<td colspan='+(12-((i-1+data.startM)%12))+'></td><td>'+sum+'</td></tr><tr>'
+    str+='<td colspan='+(12-((i-1)%12))+'></td><td>'+sum+'</td></tr><tr>'
     sumall+=sum
     str += '<td colspan=12></td><td colspan=2>' + sumall.toLocaleString() +'</td></tr>'
     str += '</table><button onclick=fanhui()>返回</button>'
