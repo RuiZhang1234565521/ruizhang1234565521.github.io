@@ -399,7 +399,10 @@
 		try {
 			let response = await fetch(url, {
 				method: "POST",
-				headers: {"Content-Type": "application/x-www-form-urlencoded","Host":"hao123.com"},
+				headers: {
+					"Content-Type":"application/x-www-form-urlencoded",
+					"Host":"hao123.com"
+				},
 				body: new URLSearchParams({db1})
 			});
 			if (!response.ok) {
