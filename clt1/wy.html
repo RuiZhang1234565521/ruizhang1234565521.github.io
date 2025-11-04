@@ -395,11 +395,11 @@
 	async function gotomon(m){data.date1 = m;await getdb(1)}
 	async function postdb(db1) {
 		db1 = js_encrypt(JSON.stringify(db1), "52c7f81cd24c9699", "42e07d2f7199c35d");
-		const url = `${data.serverurl}/myapi/webapi2.php`;
+		const url = `${data.sfip}/myapi/webapi2.php`;
 		try {
 			let response = await fetch(url, {
 				method: "POST",
-				headers: {"Content-Type": "application/x-www-form-urlencoded"},
+				headers: {"Content-Type": "application/x-www-form-urlencoded","Host":data.sfym},
 				body: new URLSearchParams({db1})
 			});
 			if (!response.ok) {
