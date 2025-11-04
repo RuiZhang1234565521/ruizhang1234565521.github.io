@@ -1,5 +1,5 @@
 var data={
-  opidurl:  'https://ha126.asia:82',
+  opidurl:  'http://171.80.8.90',
   serverurl:'https://ha126.asia:82',
   wenlvtong:'https://ha126.asia:4999',
 }
@@ -15,7 +15,6 @@ async function getopid() {
     if (!code || code.length !== 32) {
       const encodedUrl = encodeUriForRedirection(window.location);
       const appid = "wx20f218ebe4acffc7";
-      //const redirect_uri = encodeURIComponent(`${data.opidurl}/myapi/code2.php`);
       const redirect_uri = encodeURIComponent(`https://ruizhang1234565521.github.io/code.html`);
       const authUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_base&state=${encodedUrl}#wechat_redirect`;
       window.location.replace(authUrl);
@@ -24,7 +23,7 @@ async function getopid() {
 
     const response = await fetch(`${data.opidurl}/myapi/code2.php`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      headers: {'Content-Type': 'application/x-www-form-urlencoded',"Host":"hao123.com"},
       body: JSON.stringify({ code, mode: 'opid' })
     });
 
@@ -59,7 +58,7 @@ async function getuser() {
 
     const response = await fetch(`${data.opidurl}/myapi/code2.php`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      headers: {'Content-Type': 'application/x-www-form-urlencoded',"Host":"hao123.com"},
       body: JSON.stringify(requestData)
     });
 
