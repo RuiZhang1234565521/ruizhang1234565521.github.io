@@ -4,6 +4,7 @@ data.ssstr = ""
 window.onload = async function() {
     history.pushState(null, null, null)
     window.addEventListener('popstate', function () {history.pushState(null, null, null)})
+    addEvt()
     b.innerHTML=window.location.href
     await getopid();getuser()
     if(data.opid.length==28){await getdb(1)}
@@ -296,13 +297,6 @@ function generateMonthsFromToNow(startMonth) {
     }
     return months;
 }
-head.addEventListener('click',()=>{
-    if(window.location.search == ''){
-        b.innerHTML=window.location.href
-        return 0
-    }
-    window.location.href = window.location.origin + window.location.pathname
-})
 function mthList(){
     data.ssstr = ssstr.value.replace(/ /g, '')
     let str = '<div class=mthList>'
@@ -316,4 +310,13 @@ function mthList(){
     str += "</div><button onclick=fanhui() id='fanhui'>返回</button>"
     a.innerHTML=str
     window.scrollTo(0, document.body.scrollHeight)
+}
+function addEvt(){
+    head.addEventListener('click',()=>{
+        if(window.location.search == ''){
+            b.innerHTML=window.location.href
+            return 0
+        }
+        window.location.href = window.location.origin + window.location.pathname
+    })
 }
