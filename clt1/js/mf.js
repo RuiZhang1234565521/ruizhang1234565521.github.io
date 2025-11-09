@@ -1,11 +1,10 @@
-data.date1 = new Date(Date.parse(new Date)+28800000).toISOString().slice(0, 7)
-data.year0 = new Date(Date.parse(new Date)+28800000).toISOString().slice(0, 4)
-data.ssstr = ""
 window.onload = async function() {
     history.pushState(null, null, null)
     window.addEventListener('popstate', function () {history.pushState(null, null, null)})
-    addEvt()
-    b.innerHTML=window.location.href
+    b.innerHTML=window.location.href;addEvt()
+    data.date1 = new Date(Date.parse(new Date)+28800000).toISOString().slice(0, 7)
+    data.year0 = new Date(Date.parse(new Date)+28800000).toISOString().slice(0, 4)
+    data.ssstr = ""
     await getopid();getuser()
     if(data.opid.length==28){await getdb(1)}
 }
