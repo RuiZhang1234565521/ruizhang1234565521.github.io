@@ -160,7 +160,7 @@ async function baocun(x){
         return
     }
     data1 = replacePunctuation(data1)
-    if(x==1){db0.sql = `insert into ${data.sqlname} (id,time,data1,data2) VALUES ('${arr[0]}','${time}','${data1}','${arr[7]}')`}
+    if(x==1){db0.sql = `insert into ${data.sqlname} (id,time,data1,data2) values ('${arr[0]}','${time}','${data1}','${arr[7]}')`}
     if(x==2){db0.sql = `update ${data.sqlname} set time='${time}',data1='${data1}',data2='${arr[7]}' where id=${arr[0]}`}
     a.innerHTML=db0.sql
     let db = await postdb(db0)
