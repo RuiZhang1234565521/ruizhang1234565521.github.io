@@ -6,26 +6,13 @@
     <title>正在登陆</title>
     <style>
         @media screen and (min-width:400px) {body {width: 400px;}}
-		@media screen and (max-width:400px) {body {width: 99%;}}
-        body{
+        @media screen and (max-width:400px) {body {width: 99%;}}
+        body {
             margin: 0 auto;
-        }
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(0,0,0,.1);
-            border-radius: 50%;
-            border-top-color: #2196F3;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+            font-size: 14px;
         }
         .info-box {
             margin: 15px 0;
-            font-size: 0.85em;
             word-break: break-all;
         }
     </style>
@@ -33,7 +20,6 @@
 <body>
     <h1>正在登陆</h1>
     <div id="status">
-        <div class="loading"></div>
         正在处理请求，请稍候...
     </div>
     <div id="info" class="info-box" style="display: none;">
@@ -92,10 +78,7 @@
                 }
                 
                 // 更新状态信息
-                statusElement.innerHTML = `
-                    <div class="loading"></div>
-                    正在处理参数...
-                `;
+                statusElement.innerHTML = "正在处理参数...";
                 
                 // 处理state参数
                 const redirectUrl = processState(state, code);
@@ -107,9 +90,7 @@
                 `;
                 
                 // 更新状态信息
-                statusElement.innerHTML = `
-                    处理完成，正在跳转...
-                `;
+                statusElement.innerHTML = "处理完成，正在跳转...";
                 
                 // 延迟跳转，让用户看到信息
                 setTimeout(() => {
