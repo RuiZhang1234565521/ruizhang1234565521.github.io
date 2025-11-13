@@ -1,0 +1,52 @@
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>网娱交班记录</title>
+	<style type="text/css">
+		body {margin: 0 auto;word-break: break-all;width:700px;background: url(img/bg-1.jpg);}
+		.wechetbt {background: #2c3e50;height: 50px;color: #fff;display: flex;align-items: center;padding: 0 15px;}
+		.wechetbt img {width: 45px;height: 45px;border-radius: 20%;margin-right: 10px;border: 1px solid #fff;}
+		.wechetbt #coktm {font-size: 12px;margin-left: auto;opacity: 0.8;}
+		table {width: 100%;border-collapse: collapse;table-layout: fixed;}
+		td{border-collapse:collapse;border: 1px solid #fff;text-align:center;font-size:14px;cursor:default;width:auto;white-space:nowrap;overflow:hidden;}
+		#b {cursor: default;float: right;margin-top: 50px;}
+		tr {background: #DEF;height: 25px;}
+		tr:hover td{border-bottom: 1px solid #2c3e50;}
+		a {color: #000;text-decoration: none;}
+		a:hover {color: #080;}
+		#a input {width: 150px;border: 0px;background-color: #DEF;text-align: center;}
+		#ssstr,#mon {font-size: 20px;width: 85px;cursor: default;margin: 0 5px;height: 27px;}
+		button {width: 60px;height: 27px;margin-right:10px;background: #2c3e50;border: none; color: #fff;border-radius:3px;}
+		textarea {width: 100%;overflow: auto;word-break: break-all;resize: none;background-color: #DEF;}
+		#dog {width: 200px; border-radius:10px; font-size: 14px;}
+		#dog div{margin-top: 20px; text-align: right;}
+		#dog button{margin-left: 20px;}
+		.mthList {display: flex;gap: 8px;flex-wrap: wrap}
+		.mthitem {display: flex;border: 1px solid #2c3e50;width: 70px;height: 26px;
+		justify-content: center;align-items: center;border-radius: 5px;cursor: default;}
+	</style>
+</head>
+<body>
+	<div class="wechetbt">
+		<img id="head" src="img/head.jpg" />
+		<text id="nickname"></text>
+		<text id="tishi"></text>
+		<text id="coktm"></text>
+	</div>
+	<div id="a"></div>
+	<div id="b"></div>
+	<dialog id='dog'>
+		<p id='dogp'>message</p>
+		<div><text id='dogbtn'></text><text><button onclick=dog.close()>关闭</button></text></div>
+	</dialog>
+</body>
+</html>
+<script src="js/aes.js" type="text/javascript"></script>
+<script src="js/opid.js" type="text/javascript"></script>
+<script src="js/wy.js" type="text/javascript"></script>
+<script type="text/javascript">
+	data.dbname= "wy"
+	data.startY= '2016'
+	data.startM= '09'
+</script>

@@ -1,0 +1,189 @@
+:root {
+    --primary: #2c3e50;
+    --success: #4CAF50;
+    --danger: #f44336;
+    --text: #000;
+    --border: #e0e0e0;
+    --radius: 8px;
+}
+@media screen and (min-width:400px) {body {width: 400px;}}
+@media screen and (max-width:400px) {body {width: 99%;}}
+body {
+    margin: 0 auto;
+    word-break: break-all;
+    color: var(--text);
+    background: #f5f5f5;
+    min-height: 90vh;
+    padding-bottom: 20px;
+}
+#a {
+    min-height: 200px;
+    padding: 2px;
+}
+
+#b {
+    padding: 2px;
+}
+
+.wechetbt {
+    border-radius: var(--radius);
+    background: #2c3e50;
+    margin: 0px 4px;
+    height: 50px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+}
+
+.wechetbt img {
+    width: 45px;
+    height: 45px;
+    border-radius: 20%;
+    margin-right: 10px;
+    border: 1px solid #fff;
+}
+
+.wechetbt #coktm {
+    font-size: 12px;
+    margin-left: auto;
+    opacity: 0.8;
+}
+
+p {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.item {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin: 12px 3px;
+    padding: 10px;
+    background: white;
+}
+
+.itembt {
+    background: var(--primary);
+    color: #fff;
+    width: auto;
+    min-width: 150px;
+    border-radius: var(--radius);
+    text-align: center;
+    cursor: default;
+    padding: 3px 10px;
+    display: inline-block;
+}
+
+.itembz {
+    color: var(--text);
+}
+.item11 {
+    text-align: right;
+    float: right;
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.itemxq {
+    color: var(--success);
+    clear: both;
+    padding-top: 8px;
+}
+
+#mon, #ssstr {
+    font-size: 20px;
+    width: 100px;
+    cursor: default;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 4px 8px;
+}
+
+button {
+    width: 60px;
+    height: 32px;
+    margin-left: 10px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+}
+
+textarea {
+    width: 100%;
+    overflow: auto;
+    word-break: break-all;
+    resize: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 8px;
+    font-family: inherit;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+td {
+    border: 1px solid var(--border);
+    text-align: center;
+    font-size: 14px;
+    cursor: default;
+}
+
+#addtab input {
+    width: 150px;
+    border: 1px solid var(--border);
+    text-align: center;
+    padding: 6px;
+    border-radius: var(--radius);
+}
+
+#dog {
+    width: 200px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    padding: 20px;
+}
+
+#dog div {
+    margin-top: 20px;
+    text-align: right;
+}
+
+#dog button {
+    margin-left: 20px;
+}
+
+.mthList {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.mthitem {
+    display: flex;
+    border: 1px solid var(--border);
+    width: 70px;
+    height: 25px;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--radius);
+    cursor: pointer;
+    background: white;
+    transition: all 0.2s;
+}
+
+.mthitem:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+}
