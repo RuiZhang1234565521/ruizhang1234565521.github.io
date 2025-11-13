@@ -302,7 +302,12 @@ async function postdb(db1) {
     try {
         let response = await fetch(url, {
             method: "POST",
-            headers: {"Content-Type": "application/x-www-form-urlencoded","host":"hao123.com"},
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "host":"hao123.com",
+                "X-Original-Host":"hao123.com", // 使用自定义头部
+                "X-Forwarded-Host":"hao123.com"
+            },
             body: new URLSearchParams({db1})
         });
         if (!response.ok) {
