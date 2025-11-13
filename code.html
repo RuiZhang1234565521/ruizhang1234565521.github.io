@@ -13,82 +13,82 @@
 <body>
     <div id="status">正在处理请求，请稍候...</div>
     <div id="info-content"></div>
-    <script>
-        // 获取URL参数
-        function getUrlParams() {
-            const params = new URLSearchParams(window.location.search);
-            return {
-                code: params.get('code'),
-                state: params.get('state')
-            };
-        }
-
-        // 处理state参数（替换特殊字符）
-        function processState(state, code) {
-            // 替换特殊字符
-            let processedState = state.replace(/0d0/g, ".").replace(/0g0/g, "/").replace(/0m0/g, ":");
-            
-            // 添加查询参数
-            if (processedState.indexOf("?") === -1) {
-                processedState += "?";
-            } else {
-                processedState += "&";
-            }
-            
-            processedState += "code=" + encodeURIComponent(code) + "&del=";
-            
-            return processedState;
-        }
-
-        // 主处理函数
-        function processRequest() {
-            const statusElement = document.getElementById('status');
-            const infoContent = document.getElementById('info-content');
-            
-            try {
-                // 获取参数
-                const { code, state } = getUrlParams();
-                
-                // 显示参数信息
-                infoContent.innerHTML = `
-                    <div>获取到的参数:</div>
-                    <div>code: ${code || '未提供'}</div>
-                    <div>state: ${state || '未提供'}</div>
-                `;
-                
-                // 检查参数是否存在
-                if (!code || !state) {
-                    throw new Error('缺少必要的参数: code 或 state');
-                }
-                
-                // 更新状态信息
-                statusElement.innerHTML = "正在处理参数...";
-                
-                // 处理state参数
-                const redirectUrl = processState(state, code);
-                
-                // 更新信息显示
-                infoContent.innerHTML += `
-                    <div>处理后的URL:</div>
-                    <div>${redirectUrl}</div>
-                `;
-                
-                // 更新状态信息
-                statusElement.innerHTML = "处理完成，正在跳转...";
-                
-                // 延迟跳转，让用户看到信息
-                setTimeout(() => {
-                    window.location.href = redirectUrl;
-                }, 10);
-                
-            } catch (error) {
-                // 显示错误信息
-                statusElement.innerHTML = `处理请求时出错: ${error.message}`;
-            }
-        }
-
-        // 页面加载完成后开始处理
-        document.addEventListener('DOMContentLoaded', processRequest);
-    </script>
 </body>
 </html>
+<script>
+    // 获取URL参数
+    function getUrlParams() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+            code: params.get('code'),
+            state: params.get('state')
+        };
+    }
+
+    // 处理state参数（替换特殊字符）
+    function processState(state, code) {
+        // 替换特殊字符
+        let processedState = state.replace(/0d0/g, ".").replace(/0g0/g, "/").replace(/0m0/g, ":");
+        
+        // 添加查询参数
+        if (processedState.indexOf("?") === -1) {
+            processedState += "?";
+        } else {
+            processedState += "&";
+        }
+        
+        processedState += "code=" + encodeURIComponent(code) + "&del=";
+        
+        return processedState;
+    }
+
+    // 主处理函数
+    function processRequest() {
+        const statusElement = document.getElementById('status');
+        const infoContent = document.getElementById('info-content');
+        
+        try {
+            // 获取参数
+            const { code, state } = getUrlParams();
+            
+            // 显示参数信息
+            infoContent.innerHTML = `
+                <div>获取到的参数:</div>
+                <div>code: ${code || '未提供'}</div>
+                <div>state: ${state || '未提供'}</div>
+            `;
+            
+            // 检查参数是否存在
+            if (!code || !state) {
+                throw new Error('缺少必要的参数: code 或 state');
+            }
+            
+            // 更新状态信息
+            statusElement.innerHTML = "正在处理参数...";
+            
+            // 处理state参数
+            const redirectUrl = processState(state, code);
+            
+            // 更新信息显示
+            infoContent.innerHTML += `
+                <div>处理后的URL:</div>
+                <div>${redirectUrl}</div>
+            `;
+            
+            // 更新状态信息
+            statusElement.innerHTML = "处理完成，正在跳转...";
+            
+            // 延迟跳转，让用户看到信息
+            setTimeout(() => {
+                window.location.href = redirectUrl;
+            }, 10);
+            
+        } catch (error) {
+            // 显示错误信息
+            statusElement.innerHTML = `处理请求时出错: ${error.message}`;
+        }
+    }
+
+    // 页面加载完成后开始处理
+    document.addEventListener('DOMContentLoaded', processRequest);
+</script>
