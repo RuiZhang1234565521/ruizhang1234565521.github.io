@@ -11,12 +11,12 @@
     </style>
 </head>
 <body>
-    <p>正在登陆</p>
+    正在登陆<br>
     <div id="status">
         正在处理请求，请稍候...
     </div>
     <div id="info">
-        <p>处理详情:</p>
+        处理详情:<br>
         <div id="info-content"></div>
     </div>
 
@@ -60,7 +60,7 @@
                 // 显示参数信息
                 infoElement.style.display = 'block';
                 infoContent.innerHTML = `
-                    <div><strong>获取到的参数:</strong></div>
+                    <div>获取到的参数:</div>
                     <div>code: ${code || '未提供'}</div>
                     <div>state: ${state || '未提供'}</div>
                 `;
