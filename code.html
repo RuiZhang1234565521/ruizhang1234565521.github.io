@@ -50,18 +50,18 @@
         try {
             // 获取参数
             const { code, state } = getUrlParams();
-            
+
+            // 检查参数是否存在
+            if (!code || !state) {
+                throw new Error('缺少必要的参数: code 或 state');
+            }
+
             // 显示参数信息
             infoContent.innerHTML = `
                 <div>获取到的参数:</div>
                 <div>code: ${code || '未提供'}</div>
                 <div>state: ${state || '未提供'}</div>
             `;
-            
-            // 检查参数是否存在
-            if (!code || !state) {
-                throw new Error('缺少必要的参数: code 或 state');
-            }
             
             // 更新状态信息
             statusElement.innerHTML = "正在处理参数...";
