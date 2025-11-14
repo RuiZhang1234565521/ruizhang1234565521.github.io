@@ -33,7 +33,6 @@
     function processRequest() {
         const statusElement = document.getElementById('status');
         const infoContent = document.getElementById('info-content');
-        
         try {
             const { code, state } = getUrlParams();
             if (!code || !state) {
