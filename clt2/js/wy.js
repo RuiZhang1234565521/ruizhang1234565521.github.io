@@ -143,11 +143,10 @@ async function shangpin(e){
         str += "</tr>"
     }
     str += spbz
-    str += `<tr><td colSpan=12>${db[1].data1}</td></tr>`
     str += "</table>"
     str += "<button onclick=shangpin(" + (+e-1) + ")>上页</button>"
     str += "<button onclick=shangpin(" + (+e+1) + ")>下页</button>"
-    str += "<button onclick=fanhui()>返回</button> 当前班次:" + e 
+    str += "<button onclick=fanhui()>返回</button> 当前班次:" + e +";" + db[1].data1
     a.innerHTML=str
 }
 function fanhui(){
