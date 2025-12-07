@@ -79,7 +79,7 @@ function maketab(){
         });
         data.str += "<tr><td colspan=9>"+ dbhy + "+" + dbls + "+" + swxtx + "=" + (+dbhy + +dbls + +swxtx) + "点卡" + (dbdk-swxtx)
         data.str += "商品" + dbsp + "-" + dbjh + "=" + (+dbsp - +dbjh) + "(" + ((+dbsp - +dbjh)*100/+dbsp).toFixed(0) + "%)" 
-        data.str += "开支" + dbkz + "预测:" + yc(db[db.length-1] , dbsum) + " </td><td>" + Math.ceil(dbsum) + "</td></tr>"
+        data.str += "开支" + dbkz + "预测:" + 预测(db[db.length-1] , dbsum) + " </td><td>" + Math.ceil(dbsum) + "</td></tr>"
         data.str += "</table>"
         if(sAll1){b.innerHTML = data.ssstr+" 统计总数为: "+sAll1}
         else{b.innerHTML=window.location.href}
@@ -96,7 +96,7 @@ function maketab(){
     data.str += "<button onclick=year(1)>╋</button>"
     a.innerHTML=data.str
 }
-function yc(db,s){
+function 预测(db,s){
     let rq = new Date(Date.parse(new Date(db.time))-57600000).toISOString().slice(0, 10).split("-")
     let days = new Date(rq[0], rq[1], 0).getDate()
     return Math.ceil(s*days/rq[2])
@@ -111,7 +111,7 @@ function xianshibz(e){
 async function shangpin(e){
     let id = e
     let db0 = {mode:1,opid:data.opid}
-    db0.sql = `select id,data2 from ${data.dbname} where id = ${id-1} or id = ${id}`
+    db0.sql = `select id,data1,data2 from ${data.dbname} where id = ${id-1} or id = ${id}`
     a.innerHTML=db0.sql
     let db = await postdb(db0)
     a.innerHTML+="<br><br><br>" + e  + '__' + db.length + "<br><br><br>已经没有数据了!<br><button onclick=fanhui()>首页</button>"
@@ -143,6 +143,7 @@ async function shangpin(e){
         str += "</tr>"
     }
     str += spbz
+    str += db1.data1
     str += "</table>"
     str += "<button onclick=shangpin(" + (+e-1) + ")>上页</button>"
     str += "<button onclick=shangpin(" + (+e+1) + ")>下页</button>"
