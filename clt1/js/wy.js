@@ -111,7 +111,7 @@ function xianshibz(e){
 async function shangpin(e){
     let id = e
     let db0 = {mode:1,opid:data.opid}
-    db0.sql = `select id,data2 from ${data.dbname} where id = ${id-1} or id = ${id}`
+    db0.sql = `select id,data1,data2 from ${data.dbname} where id = ${id-1} or id = ${id}`
     a.innerHTML=db0.sql
     let db = await postdb(db0)
     a.innerHTML+="<br><br><br>" + e  + '__' + db.length + "<br><br><br>已经没有数据了!<br><button onclick=fanhui()>首页</button>"
@@ -146,7 +146,7 @@ async function shangpin(e){
     str += "</table>"
     str += "<button onclick=shangpin(" + (+e-1) + ")>上页</button>"
     str += "<button onclick=shangpin(" + (+e+1) + ")>下页</button>"
-    str += "<button onclick=fanhui()>返回</button> 当前班次:" + e 
+    str += "<button onclick=fanhui()>返回</button> 当前班次:" + e +";" + db[1].data1.split('|')[10]
     a.innerHTML=str
 }
 function fanhui(){
