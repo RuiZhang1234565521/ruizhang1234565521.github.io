@@ -114,6 +114,7 @@ async function shangpin(e){
     db0.sql = `select id,data1,data2 from ${data.dbname} where id = ${id-1} or id = ${id}`
     a.innerHTML=db0.sql
     let db = await postdb(db0)
+    let db1 = db[1].data1.split('|')
     a.innerHTML+="<br><br><br>" + e  + '__' + db.length + "<br><br><br>已经没有数据了!<br><button onclick=fanhui()>首页</button>"
     let sp = [] , sp0 = [] , sp1 = [] , str = ""
     sp = jieYa(db[0].data2).split("|换行")
@@ -146,8 +147,9 @@ async function shangpin(e){
     str += "</table>"
     str += "<button onclick=shangpin(" + (+e-1) + ")>上页</button>"
     str += "<button onclick=shangpin(" + (+e+1) + ")>下页</button>"
-    str += "<button onclick=fanhui()>返回</button> 当前班次:" + e +";" + db[1].data1.split('|')[10]
+    str += "<button onclick=fanhui()>返回</button> 当前班次:" + e
     a.innerHTML=str
+    b.innerHTML=`进货${db1[7]}:${db1[10]}`
 }
 function fanhui(){
     data.autosum=0;
