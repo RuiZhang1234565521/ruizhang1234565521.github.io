@@ -147,9 +147,8 @@ async function shangpin(e){
     str += "</table>"
     str += "<button onclick=shangpin(" + (+e-1) + ")>上页</button>"
     str += "<button onclick=shangpin(" + (+e+1) + ")>下页</button>"
-    str += "<button onclick=fanhui()>返回</button> 当前班次:" + e
+    str += `<button onclick=fanhui()>返回</button><br>班次:${e} 进货${db1[7]}:${db1[10]}`
     a.innerHTML=str
-    b.innerHTML=`进货${db1[7]}:${db1[10]}`
 }
 function fanhui(){
     data.autosum=0;
