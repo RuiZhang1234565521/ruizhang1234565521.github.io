@@ -143,7 +143,7 @@ async function shangpin(e){
         str += "</tr>"
     }
     str += spbz
-    str += db1.data1
+    str += `<tr><td colSpan=12>${db[1].data1}</td></tr>`
     str += "</table>"
     str += "<button onclick=shangpin(" + (+e-1) + ")>上页</button>"
     str += "<button onclick=shangpin(" + (+e+1) + ")>下页</button>"
