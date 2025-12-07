@@ -146,7 +146,7 @@ async function shangpin(e){
     str += "</table>"
     str += "<button onclick=shangpin(" + (+e-1) + ")>上页</button>"
     str += "<button onclick=shangpin(" + (+e+1) + ")>下页</button>"
-    str += "<button onclick=fanhui()>返回</button> 当前班次:" + e +";" + db[1].data1
+    str += "<button onclick=fanhui()>返回</button> 当前班次:" + e +";" + db[1].data1.split('|')[10]
     a.innerHTML=str
 }
 function fanhui(){
