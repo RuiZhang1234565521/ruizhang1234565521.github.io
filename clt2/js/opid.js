@@ -1,6 +1,6 @@
 var data={
   opidurl:  'https://ha126.asia:82',
-  serverurl:'https://ha126.asia:4999',
+  serverurl:'https://a0db306d.xy.proaa.top/proxy/sf',
   wenlvtong:'https://ha126.asia:4999',
 }
 async function getopid() {
