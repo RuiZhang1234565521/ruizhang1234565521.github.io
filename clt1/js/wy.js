@@ -71,7 +71,7 @@ function maketab(){
             data.str += "<td>" + bz1[2] +"</td>"
             data.str += "<td>" + bz1[3] + "　" + bz1[4] +"</td>"
             data.str += "<td>" + bz1[5] +"</td>"
-            data.str += "<td onclick=shangpin(event.target.parentNode.id)>" + bz1[6] +"</td>"
+            data.str += "<td onclick=商品(event.target.parentNode.id)>" + bz1[6] +"</td>"
             data.str += "<td>" + bz1[7] +"</td>"
             data.str += "<td>" + bz1[8] +"</td>"
             data.str += "<td onclick=xianshibz(event)>" + bz1[9] +"</td></tr>"
@@ -108,7 +108,7 @@ function xianshibz(e){
     if(bz.style.display == 'none'){bz.style.display = ''}
     else{bz.style.display = 'none'}
 }
-async function shangpin(e){
+async function 商品(e){
     let id = e
     let db0 = {mode:1,opid:data.opid}
     db0.sql = `select id,data1,data2 from ${data.dbname} where id = ${id-1} or id = ${id}`
@@ -145,8 +145,8 @@ async function shangpin(e){
     }
     str += spbz
     str += "</table>"
-    str += "<button onclick=shangpin(" + (+e-1) + ")>上页</button>"
-    str += "<button onclick=shangpin(" + (+e+1) + ")>下页</button>"
+    str += "<button onclick=商品(" + (+e-1) + ")>上页</button>"
+    str += "<button onclick=商品(" + (+e+1) + ")>下页</button>"
     str += `<button onclick=fanhui()>返回</button><br>班次:${e} 进货${db1[7]}:${db1[10]}`
     a.innerHTML=str
 }
