@@ -23,13 +23,13 @@
             state: params.get('state')
         };
     }
-    function processState(state, code) {
-        let processedState = state.replace(/0d0/g, ".").replace(/0g0/g, "/").replace(/0m0/g, ":");
-        if (processedState.indexOf("?") === -1) {processedState += "?";} 
-        else {processedState += "&";}
-        processedState += "code=" + encodeURIComponent(code) + "&del=";
-        return processedState;
-    }
+	function processState(state, code) {
+		let processedState = decodeURIComponent(state);
+		if (processedState.indexOf("?") === -1) {processedState += "?";}
+		else {processedState += "&";}
+		processedState += "code=" + encodeURIComponent(code) + "&del=";
+		return processedState;
+	}
     function processRequest() {
         const statusElement = document.getElementById('status');
         const infoContent = document.getElementById('info-content');
@@ -59,3 +59,4 @@
     }
     document.addEventListener('DOMContentLoaded', processRequest);
 </script>
+<template>

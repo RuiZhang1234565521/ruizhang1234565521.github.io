@@ -1,240 +1,182 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
+  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>科学计算器</title>
+    <title>CMD计算器</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .calculator {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        .history {
-            margin-bottom: 10px;
-            height: 300px; /* 固定高度，大约可显示10行历史记录 */
-            overflow-y: auto;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-            background-color: white;
-        }
-        #display {
-            width: 100%;
-            height: 50px;
-            font-size: 24px;
-            text-align: right;
-            margin-bottom: 10px;
-            padding: 5px;
-            box-sizing: border-box;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-        button {
-            height: 50px;
-            font-size: 18px;
-            border: none;
-            border-radius: 5px;
-            background-color: #f0f0f0;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        button:hover {
-            background-color: #e0e0e0;
-        }
-        .operator {
-            background-color: #ff9500;
-            color: white;
-        }
-        .operator:hover {
-            background-color: #e68a00;
-        }
-        .equals {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .equals:hover {
-            background-color: #45a049;
-        }
-        .clear {
-            background-color: #f44336;
-            color: white;
-        }
-        .clear:hover {
-            background-color: #d32f2f;
-        }
-        .history-item {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-            cursor: pointer;
-            line-height: 1.4;
-        }
-        .history-item:hover {
-            background-color: #f9f9f9;
-        }
-        .history-item:last-child {
-            border-bottom: none;
-        }
-    </style>
-</head>
-<body>
-    <div class="calculator">
-        <div class="history">
-            <div id="history-list"></div>
-        </div>
-        
-        <input type="text" id="display" readonly>
-        
-        <div class="buttons">
-            <button class="clear" onclick="clearDisplay()">C</button>
-            <button onclick="appendToDisplay('(')">(</button>
-            <button onclick="appendToDisplay(')')">)</button>
-            <button class="operator" onclick="appendToDisplay('/')">/</button>
-            
-            <button onclick="appendToDisplay('7')">7</button>
-            <button onclick="appendToDisplay('8')">8</button>
-            <button onclick="appendToDisplay('9')">9</button>
-            <button class="operator" onclick="appendToDisplay('*')">×</button>
-            
-            <button onclick="appendToDisplay('4')">4</button>
-            <button onclick="appendToDisplay('5')">5</button>
-            <button onclick="appendToDisplay('6')">6</button>
-            <button class="operator" onclick="appendToDisplay('-')">-</button>
-            
-            <button onclick="appendToDisplay('1')">1</button>
-            <button onclick="appendToDisplay('2')">2</button>
-            <button onclick="appendToDisplay('3')">3</button>
-            <button class="operator" onclick="appendToDisplay('+')">+</button>
-            
-            <button onclick="appendToDisplay('0')">0</button>
-            <button onclick="appendToDisplay('.')">.</button>
-            <button class="clear" onclick="backspace()">⌫</button>
-            <button class="equals" onclick="calculate()">=</button>
-        </div>
-    </div>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
+      body {
+        background: #222;
+        font-family: Consolas, "Courier New", monospace;
+        color: #00ff00;
+        /* 页面背景居中容器 */
+        display: flex;
+        justify-content: center;
+        padding-top: 30px;
+        /* 靠上，不是垂直居中 */
+        min-height: 100vh;
+      }
+
+      /* 计算器主容器 宽500 高600 */
+      #container {
+        width: 500px;
+        height: 600px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* 顶部按钮栏 */
+      .top-bar {
+        background: #000;
+        border: 1px solid #333;
+        padding: 6px 10px;
+        margin-bottom: 8px;
+        text-align: right;
+      }
+
+      #clearBtn {
+        background: #222;
+        color: #00ff00;
+        border: 1px solid #00ff00;
+        padding: 4px 8px;
+        font-family: inherit;
+        cursor: pointer;
+      }
+
+      #clearBtn:hover {
+        background: #00ff00;
+        color: #000;
+      }
+
+      /* 上方输出区域 */
+      #output {
+        flex: 1;
+        background: #000;
+        padding: 10px;
+        overflow-y: auto;
+        border: 1px solid #333;
+        margin-bottom: 8px;
+        white-space: pre-wrap;
+      }
+
+      .line {
+        margin: 4px 0;
+        cursor: pointer;
+        padding: 2px 4px;
+        border-radius: 2px;
+      }
+
+      .line:hover {
+        background: #111;
+      }
+
+      .result {
+        color: #fff;
+      }
+
+      .error {
+        color: #ff4444;
+      }
+
+      /* 下方输入区域 */
+      .bottom-wrap {
+        background: #000;
+        border: 1px solid #333;
+        padding: 8px 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .prompt-symbol {
+        margin-right: 6px;
+      }
+
+      #input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #00ff00;
+        font-family: inherit;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <!-- 顶部：清除历史按钮 -->
+      <div class="top-bar">
+        <button id="clearBtn">清除历史</button>
+      </div>
+      <div id="output"></div>
+      <div class="bottom-wrap">
+        <span class="prompt-symbol">></span>
+        <input id="input" autocomplete="off" autofocus>
+      </div>
+    </div>
     <script>
-        let history = [];
-        
-        function appendToDisplay(value) {
-            document.getElementById('display').value += value;
+      const output = document.getElementById('output');
+      const input = document.getElementById('input');
+      const clearBtn = document.getElementById('clearBtn');
+
+      // 添加一行日志
+      function addLine(text, isError = false) {
+        const div = document.createElement('div');
+        div.className = 'line';
+        if (isError) {
+          div.innerHTML = `<span class="error">${text}</span>`;
+        } else {
+          div.innerHTML = `<span class="result">${text}</span>`;
+          // 点击这一行，提取算式填入输入框，并且保持焦点
+          div.dataset.expr = text.split(' = ')[0];
+          div.onclick = function() {
+            input.value = this.dataset.expr;
+            input.focus();
+          }
         }
-        
-        function clearDisplay() {
-            document.getElementById('display').value = '';
+        output.appendChild(div);
+        // 滚动到底部
+        output.scrollTop = output.scrollHeight;
+      }
+
+      // 回车计算
+      input.addEventListener('keydown', function(e) {
+        if (e.key !== 'Enter') return;
+        const expr = input.value.trim();
+        if (!expr) {
+          return;
         }
-        
-        function backspace() {
-            let display = document.getElementById('display');
-            display.value = display.value.slice(0, -1);
+        try {
+          const result = new Function(`return ${expr}`)();
+          // 四舍五入保留5位小数，并去除末尾多余的0
+          const fixedResult = Number(result.toFixed(5));
+          addLine(`${expr} = ${fixedResult}`);
+        } catch (err) {
+          addLine(`错误：算式无效`, true);
         }
-        
-        function calculate() {
-            let display = document.getElementById('display');
-            let expression = display.value;
-            
-            if (!expression) return;
-            
-            try {
-                // 替换×为*，以便eval能正确计算
-                let evalExpression = expression.replace(/×/g, '*');
-                
-                // 使用Function构造函数来避免直接使用eval的安全风险
-                let result = new Function('return ' + evalExpression)();
-                
-                // 保留6位小数
-                if (Number.isInteger(result)) {
-                    result = result.toString();
-                } else {
-                    result = parseFloat(result.toFixed(6)).toString();
-                }
-                
-                // 添加到历史记录（重复内容会移动到最新位置）
-                addToHistory(expression, result);
-                
-                // 显示结果后清空输入框
-                display.value = '';
-            } catch (error) {
-                alert('计算错误: ' + error.message);
-            }
+        input.value = '';
+        input.focus(); // 回车计算后重新聚焦
+      })
+
+      // 清除历史按钮
+      clearBtn.onclick = function() {
+        output.innerHTML = '';
+        input.focus(); // 点完清除自动回到输入框
+      }
+
+      // 页面内任意点击，都聚焦输入框
+      document.addEventListener('click', function(e) {
+        // 如果点击的本身就是输入框，不需要重复focus
+        if (e.target !== input) {
+          input.focus();
         }
-        
-        function addToHistory(expression, result) {
-            // 检查是否已存在相同的表达式和结果
-            const existingIndex = history.findIndex(item => 
-                item.expression === expression && item.result === result
-            );
-            
-            if (existingIndex !== -1) {
-                // 如果已存在相同记录，则从原位置移除
-                const [existingItem] = history.splice(existingIndex, 1);
-                // 并添加到数组末尾（最新位置）
-                history.push(existingItem);
-            } else {
-                // 如果是新记录，添加到数组末尾
-                history.push({
-                    expression: expression,
-                    result: result
-                });
-                
-                // 限制历史记录数量
-                if (history.length > 10) {
-                    history.shift(); // 移除最旧的记录
-                }
-            }
-            
-            // 更新历史列表显示
-            updateHistoryDisplay();
-        }
-        
-        function updateHistoryDisplay() {
-            let historyList = document.getElementById('history-list');
-            historyList.innerHTML = '';
-            
-            // 从旧到新显示历史记录（最新的在最后）
-            history.forEach(item => {
-                let historyItem = document.createElement('div');
-                historyItem.className = 'history-item';
-                historyItem.innerHTML = `<strong>${item.expression}</strong> = ${item.result}`;
-                
-                // 点击历史记录项可以将其表达式填入输入框
-                historyItem.addEventListener('click', function() {
-                    document.getElementById('display').value = item.expression;
-                });
-                
-                historyList.appendChild(historyItem);
-            });
-        }
-        
-        // 键盘支持
-        document.addEventListener('keydown', function(event) {
-            const key = event.key;
-            
-            if (/[0-9\.\+\-\*\/\(\)]/.test(key)) {
-                appendToDisplay(key);
-            } else if (key === 'Enter') {
-                calculate();
-            } else if (key === 'Backspace') {
-                backspace();
-            } else if (key === 'Escape') {
-                clearDisplay();
-            } else if (key.toLowerCase() === 'c') {
-                clearDisplay();
-            }
-        });
+      })
     </script>
-</body>
+  </body>
 </html>
